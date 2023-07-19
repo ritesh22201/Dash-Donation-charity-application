@@ -7,7 +7,7 @@ donationRouter.get('/', auth, async (req, res) => {
     const { q } = req.query;
     const page = req.query.page;
     const limit = req.query.limit;
-
+    const userId = req.body.userId;
     try {
         const pageNum = +page || 1;
         const pageLimit = +limit || 5;
@@ -15,7 +15,7 @@ donationRouter.get('/', auth, async (req, res) => {
 
         if (q) {
             const donations = await DonationModel.find({ name: { $regex: q, $options: 'i' } }).skip(skip).limit(pageLimit);
-            res.status(200).send(donations);
+            return res.status(200).send(donations);
         }
 
         if (userId) {
@@ -33,10 +33,13 @@ donationRouter.get('/', auth, async (req, res) => {
 
 donationRouter.post('/addDonation', auth, async (req, res) => {
     try {
-        
+       const donation = await DonationModel.create(req.body);
+       res.status(200).send({'msg' : 'Thank you for your contribution🫶', donation});  
     } catch (error) {
        res.status(400).send({'msg' : error.message});
     }
 })
+
+
 
 module.exports = donationRouter;

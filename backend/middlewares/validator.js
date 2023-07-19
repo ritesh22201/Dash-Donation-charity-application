@@ -7,6 +7,10 @@ const validator = async (req, res, next) => {
         return res.status(400).send({ 'msg': 'All fields are required' });
     }
 
+    if(mobile.length !== 10){
+        return res.status(400).send({'msg' : 'Please enter a valid mobile number'});
+    }
+
     if (password.length < 8) {
         return res.status(400).send({ 'msg': 'Password must be of atleast 8 characters' });
     }
