@@ -1,13 +1,15 @@
 const express = require("express");
 const app = express()
-const cors = require("cors")
+const cors = require("cors");
+const connection = require("./db");
+const adminRouter = require("./routes/adminRoute");
 require('dotenv').config();
 const Port = process.env.port
-const connection = require("./.configs/db");
+
 app.use(express.json())
 app.use(cors())
 
-
+app.use("/admin",adminRouter)
 
 app.get("/", (req, res) => {
     res.send("Welcome to Home Page")
