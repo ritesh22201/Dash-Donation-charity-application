@@ -1,5 +1,6 @@
 const express = require("express");
 const UserModel = require("../../models/userModel");
+const UserBlackList = require("../../models/adminModels/userBlackList");
 const userDetailsRoute = express.Router();
 
 userDetailsRoute.get("/", async (req, res) => {
@@ -28,6 +29,16 @@ userDetailsRoute.get("/", async (req, res) => {
 });
 
 
+userDetailsRoute.post("/blockuser", async (req, res) => {
+ const {email} = req.body
+  try {
+   const blockuser = await UserBlackList.create({email})
+   res.status(200).send({"msg":"User is Blocked",blockuser})
+  } catch (error) {
+    res.status(400).send({ errmsg: error.message });
+  }
+});
+
 userDetailsRoute.delete("/:id", async (req, res) => {
   const id = req.params.id
   try {
@@ -37,6 +48,10 @@ userDetailsRoute.delete("/:id", async (req, res) => {
     res.status(400).send({ errmsg: error.message });
   }
 });
+
+
+
+
 
 
 module.exports = userDetailsRoute;
