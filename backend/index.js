@@ -1,26 +1,26 @@
 const express = require("express");
 const app = express()
-const cors = require("cors");
-const connection = require("./db");
-const adminRouter = require("./routes/adminRoute");
+const cors = require("cors")
 require('dotenv').config();
 const Port = process.env.port
-
-app.use(express.json())
-app.use(cors())
-
-app.use("/admin",adminRouter)
+const connection = require("./db");
+const userRouter = require("./routes/userRouter");
+const donationRouter = require("./routes/donationRoute");
+app.use(express.json());
+app.use(cors());
+app.use('/users', userRouter);
+app.use('/donation', donationRouter);
 
 app.get("/", (req, res) => {
-    res.send("Welcome to Home Page")
-})
+  res.send("Welcome to Home Page");
+});
 
 app.listen(Port, async () => {
-    try {
-        await connection
-        console.log("Connected to DB")
-    } catch (error) {
-        console.log(error)
-    }
-    console.log(`Server is listening on port ${Port}`)
-})
+  try {
+    await connection;
+    console.log("Connected to DB");
+  } catch (error) {
+    console.log(error);
+  }
+  console.log(`Server is listening on port ${Port}`);
+});
