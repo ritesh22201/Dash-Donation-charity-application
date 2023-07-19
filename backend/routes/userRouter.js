@@ -5,6 +5,7 @@ const UserModel = require('../models/userModel');
 require('dotenv').config();
 const jwt = require('jsonwebtoken');
 const BlackListModel = require('../models/blacklistModel');
+const UserBlackList = require('../models/adminModels/userBlackList');
 const userRouter = express.Router();
 
 userRouter.post('/register', validator, async (req, res) => {
@@ -21,6 +22,12 @@ userRouter.post('/register', validator, async (req, res) => {
 userRouter.post('/login', async (req, res) => {
     const { email, password } = req.body;
     try {
+
+        const blacklistedUser = await UserBlackList.findOne({email});
+        if(blacklistedUser){
+            return res.status(400).send({'msg' : 'You are not allowed to login.'})
+        }
+
         const user = await UserModel.findOne({ email });
         if (!user) {
             res.status(400).send({ 'msg': 'User not found' });

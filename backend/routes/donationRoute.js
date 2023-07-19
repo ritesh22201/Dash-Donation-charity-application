@@ -26,6 +26,7 @@ donationRouter.get('/', auth, async (req, res) => {
             const donations = await DonationModel.find().skip(skip).limit(pageLimit);
             res.status(200).send(donations);
         }
+        
     } catch (error) {
         res.status(400).send({ 'msg': error.message });
     }
