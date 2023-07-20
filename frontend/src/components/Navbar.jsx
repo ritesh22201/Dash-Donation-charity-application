@@ -23,8 +23,11 @@ import {
 import { HamburgerIcon, CloseIcon, AddIcon } from '@chakra-ui/icons';
 import About from '../pages/About';
 import Help from '../pages/Help';
+import Partners from '../pages/Partners';
+import Contact from '../pages/Contact';
+import Footer from '../pages/Footer';
 
-const Links = ['Dashboard', 'Projects', 'Team'];
+const Links = ['About', 'Help', 'Partners',"Contact us"];
 
 const NavLink = ({ children }) => (
   <Link
@@ -60,18 +63,18 @@ export default function WithAction() {
               spacing={4}
               display={{ base: 'none', md: 'flex' }}>
               {Links.map((link) => (
-                <NavLink key={link}>{link}</NavLink>))}
+                <NavLink className="navOpt" to={link} key={link}>{link}</NavLink>))}
             </HStack>
           </HStack>
           <Flex alignItems={'center'}>
-            <Button
+            {/* <Button
               variant={'solid'}
               colorScheme={'teal'}
               size={'sm'}
               mr={4}
               leftIcon={<AddIcon />}>
               Action
-            </Button>
+            </Button> */}
             <Menu>
               <MenuButton
                 as={Button}
@@ -80,6 +83,7 @@ export default function WithAction() {
                 cursor={'pointer'}
                 minW={0}>
                 <Avatar
+                margin={"15px"}
                   size={'sm'}
                
                 />
@@ -91,10 +95,10 @@ export default function WithAction() {
             display={{ md: 'none' }}
             onClick={isOpen ? onClose : onOpen}
           />
-              <MenuList >
-                <MenuItem>About DashDonetion</MenuItem>
+              <MenuList className='navOpt'>
+                <MenuItem >About DashDonetion</MenuItem>
                 <MenuItem>Help</MenuItem>
-                <MenuDivider />
+                {/* <MenuDivider /> */}
                 <MenuItem>Partners</MenuItem>
                 <MenuItem>Contact us</MenuItem>
               </MenuList>
@@ -116,6 +120,9 @@ export default function WithAction() {
       <Home/>
       <About/>
       <Help/>
+      <Partners/>
+      <Contact/>
+      <Footer/>
       </Box>
     </DIV>
   );
@@ -128,5 +135,9 @@ background-image: url(background) ;
     height: 50px;
     
     border-radius: 50%;
+}
+.navOpt > a {
+  color: white;
+  font-size: larger;
 }
 `
