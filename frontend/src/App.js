@@ -6,15 +6,22 @@ import WithAction from './components/Navbar';
 import AllRoutes from './routes/AllRoutes';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
+
+import AdminSideBar from './components/AdminSideBar';
+import AdminPage from './pages/AdminPage';
+import AllRoutes from './routes/AllRoutes';
+
+
+
+
 function App() {
   return (
-
-    <Box>
-      <WithAction/>
-      //  <LoginPage/>
-  <SignupPage/>
-      {/* <AllRoutes /> */}
-    </Box>
+  //  <LoginPage/>
+  // <SignupPage/>
+  <>
+  <AdminSideBar/>
+  <AllRoutes/>
+  </>
 
   );
 }
