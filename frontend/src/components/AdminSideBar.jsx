@@ -34,23 +34,28 @@ import {
   FiChevronDown,
   FiCalendar,
   FiSearch,
+  FiUser,
 } from 'react-icons/fi';
 import { IconType } from 'react-icons';
-import {MdCampaign  } from 'react-icons/md';
+import { VscOrganization } from 'react-icons/vsc';
 import { ReactText } from 'react';
 import AdminPage from '../pages/AdminPage';
-// import logo from "../Assets/DASHDONATIONLOGO.png"
+import logo from "../Assets/DashDonationLogo.png"
+import AdminUsers from './AdminUsers';
+import AdminOrganization from './AdminOrganization';
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: FiHome },
-  { name: 'Fundrasing', icon: FiTrendingUp },
-  { name: 'Events', icon: FiCalendar },
-  { name: 'Campaigns' ,icon: FiCompass}
-//   { name: 'Settings', icon: FiSettings },
+  { name: 'Dashboard', icon: FiHome, href:"/dashboard" },
+  { name: 'Users' ,icon: FiUser, href:"/adusers"},
+  { name: 'Organizations' ,icon:VscOrganization,href:"/org" },
+  { name: 'Fundrasing', icon: FiTrendingUp ,href:"/funds"},
+  { name: 'Events', icon: FiCalendar,href:"/events" },
+  { name: 'Campaigns' ,icon: FiCompass , href:"campaigns"},
+
 ];
 
 export default function AdminSideBar({
@@ -105,13 +110,14 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
       h="full"
       {...rest}>
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text fontSize="2xl" fontFamily="monospace" fontWeight="bold">
-          Logo
+        <Text fontSize="2xl" fontFamily="monospace" color="#FFD249" fontWeight="bold">
+         {/* {logo} */}
+         DashDonation
         </Text>
         <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
-        <NavItem key={link.name} icon={link.icon}>
+        <NavItem key={link.name} href={link.href} icon={link.icon}>
           {link.name}
         </NavItem>
       ))}
@@ -123,9 +129,9 @@ interface NavItemProps extends FlexProps {
   icon: IconType;
   children: ReactText;
 }
-const NavItem = ({ icon, children, ...rest }: NavItemProps) => {
+const NavItem = ({ icon,href, children, ...rest }: NavItemProps) => {
   return (
-    <Link href="#" style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
+    <Link href={href} style={{ textDecoration: 'none' }} _focus={{ boxShadow: 'none' }}>
       <Flex
         align="center"
         p="4"
@@ -188,7 +194,8 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
         fontSize="2xl"
         fontFamily="monospace"
         fontWeight="bold">
-        Logo
+        {/* {logo} */}
+        {/* DashDonation */}
       </Text>
 
       <HStack spacing={{ base: '0', md: '5' }}>
@@ -255,7 +262,10 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
       </HStack>
       
     </Flex>
-          <AdminPage/>
+    {
+       window.location.pathname == "/dashboard" ? <AdminPage/> : window.location.pathname === "/adusers" ? <AdminUsers/> : window.location.pathname === "/org" ? <AdminOrganization/> : ""
+    }
+          
     </>
   );
 };

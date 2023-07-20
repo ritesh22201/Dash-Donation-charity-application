@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AdminSideBar from '../components/AdminSideBar';
 import { Box, Flex, Text, Heading, Image, Table,
     Thead,
@@ -8,8 +8,10 @@ import { Box, Flex, Text, Heading, Image, Table,
     Th,
     Td,
     TableCaption,
-    TableContainer, } from '@chakra-ui/react';
+    TableContainer,
+    Button, } from '@chakra-ui/react';
 import { BsArrowUpRight } from 'react-icons/bs';
+import {useDispatch,useSelector} from 'react-redux'
 import { Avatar, AvatarBadge, AvatarGroup, WrapItem } from '@chakra-ui/react';
 import {
   AreaChart,
@@ -22,8 +24,50 @@ import {
   Legend,
   Line,
 } from 'recharts';
+import { getusersadmin } from '../redux/AdminReducer/action';
 
 const AdminPage = () => {
+
+    const dispatch = useDispatch()
+    const {users} = useSelector((store)=>store.adminReducer)
+    const [totalamount,setTotalamount] = useState(0)
+    const [donors,setDonors] = useState(0)
+    const [todayAmount,setTodayamount] = useState(0)
+
+    useEffect(()=>{
+       dispatch(getusersadmin())
+       let price = 0
+       let todaysprice = 0
+    
+       for(let i=0; i<users.length; i++){
+        price += users[i].amount
+      
+       }
+     
+     
+      // console.log(countdonors)
+      setTotalamount(price)
+    
+    },[users])
+
+    // console.log(users)
+
+  //  useEffect(()=>{
+  //   let donorObj = {}
+  //   for(let i=0; i<users.length; i++){
+  //    donorObj[users[i].userId]  = 1 
+  //   }
+  //   let countdonors =  Object.keys(donorObj).length
+ 
+  //   setDonors(countdonors)
+  //  },[])
+
+  //  console.log(donors)
+
+
+    // console.log(users)
+    
+
   const data = [
     {
       name: 'Page A',
@@ -69,14 +113,20 @@ const AdminPage = () => {
     },
   ];
 
+  const percentData = ((30100/50000)*100).toFixed()
+
   return (
     <>
-      <Box w="85%" mx="auto" p="20">
-        {/* Content Area */}
-        <Flex justifyContent="space-around">
+     {/* <AdminSideBar/> */}
+      <Box display="flex" flexDirection="column"  alignItems="flex-end" p="20px 60px 20px 20px" >
+      
+        <Box  w="80%">
+
+        
+        <Flex  w="100%" justifyContent="space-around">
           <Box
-            ml="80px"
-            w="33%"
+           
+            w="32%"
             p="30px"
             bg="rgb(255,210,73)"
             borderRadius="10px"
@@ -87,7 +137,7 @@ const AdminPage = () => {
             </Flex>
             <Flex mt="10px" alignItems="center">
               <Heading as="h2" size="lg">
-                $Amount
+                ${totalamount}
               </Heading>
               <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
                 Updated 1day ago
@@ -109,6 +159,7 @@ const AdminPage = () => {
               </Text>
             </Flex>
           </Box>
+         
 
           <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
             <Flex justifyContent="space-between">
@@ -117,7 +168,7 @@ const AdminPage = () => {
             </Flex>
             <Flex mt="10px" alignItems="center">
               <Heading as="h2" size="lg">
-                Donors
+                {users.length}
               </Heading>
               <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
                 Updated 1day ago
@@ -125,11 +176,12 @@ const AdminPage = () => {
             </Flex>
           </Box>
         </Flex>
+        </Box>
 
-        <Box w="100%" ml="50px" mt="50px">
-          <Flex justifyContent={'space-between'}>
+        <Box w="80%"  mt="50px">
+          <Flex justifyContent={'space-between'} gap="47px"> 
             <Box bg="white" w="70%" borderRadius="10px" p="10px">
-              <Heading ml="40px" as="h2" size="sm">
+              <Heading  as="h2" size="sm">
                 Donation Analytics
               </Heading>
               <LineChart
@@ -158,7 +210,7 @@ const AdminPage = () => {
               </LineChart>
             </Box>
 
-            <Box m="40px" bg="white" w="50%" borderRadius="10px">
+            <Box  bg="white" w="50%" borderRadius="10px">
               <Flex justifyContent="space-between" alignItems="center" p="9px">
                 <Heading as="h3" size="sm">
                   Your Fundraising
@@ -218,7 +270,7 @@ const AdminPage = () => {
 
               <Box w="93%" borderRadius="5px" m="auto" h="5px" bg="gray.100">
                 <Box
-                  w="73%"
+                  w={`${percentData}%`}
                   borderRadius="5px"
                   h="5px"
                   bg="rgb(255,210,73)"
@@ -243,9 +295,9 @@ const AdminPage = () => {
 
                 {/*  */}
 
-        <Box w="85%" mx="auto" borderRadius="10px" mt="40px" p="20px"  bg="white">
+        <Box  w="80%"  borderRadius="10px" mt="40px" p="20px"  bg="white">
         <Flex justifyContent="space-between" alignItems="center">
-         <Heading as="h3" size="sm">Donation History</Heading>
+         <Heading as="h3" size="sm">Recent Donations</Heading>
          <Heading as="h3" size="md">...</Heading>
         </Flex>
            
@@ -253,23 +305,34 @@ const AdminPage = () => {
         <TableContainer>
   <Table variant='simple'>
     {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-    <Thead>
-      <Tr>
-        <Th>Name</Th>
-        <Th>Location</Th>
-        <Th >Type</Th>
-        <Th >Date</Th>
-        <Th >Amount</Th>
+    <Thead >
+      <Tr >
+        <Th  textAlign={"center"}>Name</Th>
+        <Th  textAlign={"center"}>Location</Th>
+        <Th  textAlign={"center"}>Category</Th>
+        <Th  textAlign={"center"}>Date</Th>
+        <Th  textAlign={"center"}>Amount</Th>
+      
       </Tr>
     </Thead>
     <Tbody>
-      <Tr>
-        <Td>John</Td>
-        <Td>USA</Td>
-        <Td>Ukraine</Td>
-        <Td>Today</Td>
-        <Td>Amount</Td>
-      </Tr>
+
+      {
+        users.map((el)=>{
+          
+          const dates = el.date.split("T")[0]
+          
+
+         return <Tr key={el.id}>
+            <Td  textAlign={"center"}>{el.name}</Td>
+            <Td  textAlign={"center"}>{el.country}</Td>
+            <Td  textAlign={"center"}>{el.category}</Td>
+            <Td  textAlign={"center"}>{dates}</Td>
+            <Td textAlign={"center"}>${el.amount}</Td>
+            
+          </Tr>
+        }).reverse()
+      }
      
     </Tbody>
     
