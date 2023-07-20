@@ -1,0 +1,5 @@
+export const AUTH_REQUEST = "AUTH_REQUEST"
+export const LOGIN_SUCCESS = "LOGIN_SUCCESS"
+export const AUTH_FAILURE = "AUTH_FAILURE"
+
+export const REGISTER_SUCCESS = 'REGISTER_SUCCESS'

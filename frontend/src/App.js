@@ -8,8 +8,8 @@ import SignupPage from './pages/SignupPage';
 
 function App() {
   return (
-  //  <LoginPage/>
-  <SignupPage/>
+   <LoginPage/>
+  // <SignupPage/>
   );
 }
 
