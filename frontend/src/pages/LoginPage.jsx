@@ -1,32 +1,58 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import {Link} from "react-router-dom";
 import '../styles/login.css'
+import { useDispatch, useSelector } from 'react-redux';
+import { login } from '../redux/authreducer/action';
+import { Toast, useToast } from '@chakra-ui/react';
 
 const LoginPage = () => {
     // const navigate = useNavigate()
+    const dispatch = useDispatch();
+    const toast = useToast()
+    const {isAuth ,errorMsg,token} = useSelector(store => store.authReducer)
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
 
     const handleLogin = (e) => {
         e.preventDefault();
         const userData = { email, password }
-        axios.post("https://gifted-mittens-fly.cyclic.app/users/login", userData)
-          .then((res) => {
-              console.log(res)
-              localStorage.setItem("ch-token", res.data?.token)
-              alert(`${res.data.msg}`)
-            //  if(email=="admin@gmail.com"){
-            //   navigate("/admin")
-            //  }else{
-            //   navigate(location)
-            //  }
-          })
-          .catch((err) => {
-             alert(err)
-        })
-      
+        // axios.post("https://odd-lion-life-jacket.cyclic.app//users/login", userData)
+        //   .then((res) => {
+        //       console.log(res)
+        //       localStorage.setItem("ch-token", res.data?.token)
+        //       alert(`${res.msg}`)
+        //     //  if(email=="admin@gmail.com"){
+        //     //   navigate("/admin")
+        //     //  }else{
+        //     //   navigate(location)
+        //     //  }
+        //   })
+        //   .catch((err) => {
+        //      alert(err)
+        // })
+        dispatch(login(userData))
       }
+
+   useEffect(()=>{
+    if(token){
+      toast({
+        description  : "User is logedIn",
+        status : 'success',
+        isClosable : true,
+        duration: 4000,
+        position : 'top'
+      })
+    }else if(errorMsg){
+      toast({
+        description : errorMsg,
+        status : 'error',
+        isClosable : true,
+        duration: 4000,
+        position : 'top'
+      })
+     }
+   },[isAuth,errorMsg])
 
 
   return (
@@ -39,9 +65,7 @@ const LoginPage = () => {
       <div className='signup-detail'>
         <h1>Give Your life to charity<br /> <span>Charity <span>Hero</span></span></h1>
         <img width={"100%"} src="https://media.istockphoto.com/id/1353332258/photo/donation-concept-the-volunteer-giving-a-donate-box-to-the-recipient-standing-against-the-wall.webp?b=1&s=170667a&w=0&k=20&c=D53dy4HPlfLi9yCO8ouowIn9HqIWfkjEx4-C05B8TYU=" alt="" />
-        <h3>
-          Login to become the hero of others life<br />to study in the dream universities  <br /> with the career mantra's support !
-        </h3>
+       
       </div>
       <form onSubmit={handleLogin} className='signup'>
         <h1>Charity<span>Hero</span>  <span> Login</span></h1>
