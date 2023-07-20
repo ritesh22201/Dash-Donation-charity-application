@@ -3,22 +3,22 @@ const auth = require('../middlewares/authMiddleware');
 const DonationModel = require('../models/donationModel');
 const donationRouter = express.Router();
 
-donationRouter.get('/', async(req, res) => {
-    const page = req.query.page;
-    const limit = req.query.limit;
-    try {
-        const pageNum = +page || 1;
-        const pageLimit = +limit || 5;
-        const skip = (pageNum - 1) * pageLimit;
+// donationRouter.get('/', async(req, res) => {
+//     const page = req.query.page;
+//     const limit = req.query.limit;
+//     try {
+//         const pageNum = +page || 1;
+//         const pageLimit = +limit || 5;
+//         const skip = (pageNum - 1) * pageLimit;
 
-        const donations = await DonationModel.find().skip(skip).limit(pageLimit);
-        res.status(200).send(donations);
-    } catch (error) {
-        res.status(400).send({ 'msg': error.message });
-    }
-})
+//         const donations = await DonationModel.find().skip(skip).limit(pageLimit);
+//         res.status(200).send(donations);
+//     } catch (error) {
+//         res.status(400).send({ 'msg': error.message });
+//     }
+// })
 
-donationRouter.get('/filter', auth, async (req, res) => {
+donationRouter.get('/', auth, async (req, res) => {
     const { q } = req.query;
     const page = req.query.page;
     const limit = req.query.limit;
