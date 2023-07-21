@@ -18,6 +18,7 @@ export const login = (userData) => (dispatch) => {
     dispatch({type : AUTH_REQUEST})
    axios.post('https://odd-lion-life-jacket.cyclic.app/users/login', userData)
    .then(res => {
+    localStorage.setItem("ch-token", res.data?.token)
     console.log(res.data.token);
     console.log(res);
       dispatch({type : LOGIN_SUCCESS, payload : res.data.token})

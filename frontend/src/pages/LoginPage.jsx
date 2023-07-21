@@ -37,7 +37,7 @@ const LoginPage = () => {
    useEffect(()=>{
     if(token){
       toast({
-        description  : "User is logedIn",
+        description  : "User is Login successfull",
         status : 'success',
         isClosable : true,
         duration: 4000,
@@ -52,23 +52,23 @@ const LoginPage = () => {
         position : 'top'
       })
      }
-   },[isAuth,errorMsg])
+   },[isAuth,errorMsg,token])
 
 
   return (
     <div>
     <div className='background'>
-      <img width={"100%"} src="https://plus.unsplash.com/premium_photo-1661963873162-5028faa8ce36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTF8fGRvbmF0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="" />
+      {/* <img width={"100%"} src="https://plus.unsplash.com/premium_photo-1661963873162-5028faa8ce36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTF8fGRvbmF0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="" /> */}
     </div>
 
     <div className='signup-page'>
       <div className='signup-detail'>
-        <h1>Give Your life to charity<br /> <span>Charity <span>Hero</span></span></h1>
+        <h1>Give Your life to charity<br /> <span>Dash <span>Donation</span></span></h1>
         <img width={"100%"} src="https://media.istockphoto.com/id/1353332258/photo/donation-concept-the-volunteer-giving-a-donate-box-to-the-recipient-standing-against-the-wall.webp?b=1&s=170667a&w=0&k=20&c=D53dy4HPlfLi9yCO8ouowIn9HqIWfkjEx4-C05B8TYU=" alt="" />
        
       </div>
       <form onSubmit={handleLogin} className='signup'>
-        <h1>Charity<span>Hero</span>  <span> Login</span></h1>
+        <h1>DASH<span>DONATION</span>  <span> Login</span></h1>
 
         <br />
         <label >Username</label>

@@ -4,23 +4,19 @@ import {
 } from '@chakra-ui/react';
 import WithAction from './components/Navbar';
 import AllRoutes from './routes/AllRoutes';
-import LoginPage from './pages/LoginPage';
-import SignupPage from './pages/SignupPage';
-
 import AdminSideBar from './components/AdminSideBar';
-import AdminPage from './pages/AdminPage';
-import AllRoutes from './routes/AllRoutes';
-
+import SignupPage from './pages/SignupPage';
+import LoginPage from './pages/LoginPage';
 
 
 
 function App() {
   return (
-  //  <LoginPage/>
-  // <SignupPage/>
   <>
-  <AdminSideBar/>
-  <AllRoutes/>
+  {/* <AdminSideBar/> */}
+  {/* <AllRoutes/> */}
+  <SignupPage/>
+  {/* <LoginPage/> */}
   </>
 
   );
