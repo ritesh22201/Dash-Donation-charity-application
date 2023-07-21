@@ -77,7 +77,7 @@ const LoginPage = () => {
         <label >Password</label>
         <input type="password" placeholder='Password' value={password} onChange={(e) => setPassword(e.target.value)} required />
         <br />
-        <button type="submit" >Login</button>          <span>Don't have an account ? <Link className='log-btn' to='/signup'>SignUp</Link> </span>
+        <button type="submit" >Login</button>          <span>Don't have an account ? <Link className='log-btn' to='/users/register'>SignUp</Link> </span>
 
       </form>
     </div>

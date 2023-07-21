@@ -90,7 +90,7 @@ const SignupPage = () => {
             <input type="number" placeholder='Enter Your Age' value={age}  onChange={(e)=>setAge(e.target.value)} required/>
             <br />
             <button type='submit'>Sign Up</button>
-            <span>Already have an account ? <Link className='log-btn' to='/login'>Login</Link> </span>
+            <span>Already have an account ? <Link className='log-btn' to='/users/login'>Login</Link> </span>
 
       </form>
      </div>
