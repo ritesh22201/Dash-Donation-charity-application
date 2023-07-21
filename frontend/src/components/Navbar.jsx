@@ -168,6 +168,8 @@ import {FiLogIn} from "react-icons/fi"
 import { Icon } from "@chakra-ui/react";
 import {SearchIcon} from "@chakra-ui/icons"
 import DASHDONATION  from "../Assets/DASHDONATION.png"
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/authreducer/action';
 
 // import logo_final from "../Images/logo-new.png"
 // import { getProduct } from "../Api/action";
@@ -195,20 +197,26 @@ import DASHDONATION  from "../Assets/DASHDONATION.png"
 
 	// const navRef = useRef(null);
 	const [navClass, setNavClass] = useState(false)
-
+    
 	
 
 	const showNavbar = () => {
 		setNavClass(!navClass)		
 	};
 
-	  const login = true
+	//   const login = true
+	  const token = localStorage.getItem('ch-token') || '';
+
+	  const dispatch = useDispatch()
   //  useSelector((state)=> state.AuthReducer.isAuth)
 	// const searchBar = useRef(null)
 
 // const dispatch = useDispatch()
 	const handleLogOut = () =>{
 // 		dispatch(LoginFailure())
+
+			localStorage.removeItem("ch-token")
+			dispatch(logout(token))
 	}
 
 	// const showSearch = ()=>{
@@ -256,7 +264,7 @@ const navgite = useNavigate()
 					{/* <Icon as={BsHandbag}/> */}
 					</Link>
                     {
-						login ? <Menu>
+						token ? <Menu>
 						{({ isOpen }) => (
 						  <div>
 							<MenuButton isActive={isOpen} as={Button}   >
@@ -270,7 +278,7 @@ const navgite = useNavigate()
 							</MenuList>
 						  </div>
 						)}
-					  </Menu> : <Link to="/login">
+					  </Menu> : <Link to="/users/register">
                     <Icon as={FiLogIn}/>
 					</Link>
 
@@ -445,3 +453,4 @@ nav{
 
 
 export default Navbar
+// window.location.pathname == "/" ? none : white

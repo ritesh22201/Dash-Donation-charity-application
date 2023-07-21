@@ -48,7 +48,7 @@ const DIV = styled.div`
     
     .mainContainer{
         padding: 60px;
-        height: 100vh;
+        /* height: 100vh; */
     }
     .main-div{
         width: 60%;

@@ -38,7 +38,7 @@ export const logout = (token) => (dispatch) => {
    //   dispatch({type : LOGIN_SUCCESS, payload : res.data.token})
   })
   .catch(error => {
-    dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
-   console.log(error.response.data.msg)
+   //  dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
+   console.log(error)
   })
 }
