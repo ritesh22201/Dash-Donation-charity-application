@@ -10,11 +10,19 @@ import {
   Flex,
   Heading,
   Table,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
   Button,
 } from '@chakra-ui/react';
 // import {DeleteIcon} from ' @chakra-ui/icons'
 import { deleteUsers, getAllusers } from '../redux/AdminReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
+import { useDisclosure} from '@chakra-ui/hooks';
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
@@ -26,41 +34,47 @@ const AdminUsers = () => {
 
   // console.log(allusers)
   const handleDelete = id => {
-    // console.log(id)
-    dispatch(deleteUsers(id));
+    dispatch(deleteUsers(id)).then(() => dispatch(getAllusers()));
+  };
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const cancelRef = React.useRef();
+  const handleDeleteUser = id => {
+    onClose();
+    handleDelete(id);
   };
 
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="flex-end"
-      p="20px 60px 20px 20px"
-    >
-      <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
-        <Flex justifyContent="space-between" alignItems="center">
-          <Heading as="h3" size="sm">
-            All Users
-          </Heading>
-          <Heading as="h3" size="md">
-            ...
-          </Heading>
-        </Flex>
+    <>
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-end"
+        p="20px 60px 20px 20px"
+      >
+        <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
+          <Flex justifyContent="space-between" alignItems="center">
+            <Heading as="h3" size="sm">
+              All Users
+            </Heading>
+            <Heading as="h3" size="md">
+              ...
+            </Heading>
+          </Flex>
 
-        <TableContainer>
-          <Table variant="simple">
-            <Thead>
-              <Tr>
-                <Th textAlign={'center'}>Name</Th>
-                <Th textAlign={'center'}>Email</Th>
-                <Th textAlign={'center'}>Mobile Number</Th>
-                <Th textAlign={'center'}>Block</Th>
-                <Th textAlign={'center'}>Delete</Th>
-              </Tr>
-            </Thead>
-            <Tbody>
-              {allusers
-                .map(el => {
+          <TableContainer>
+            <Table variant="simple">
+              <Thead>
+                <Tr>
+                  <Th textAlign={'center'}>Name</Th>
+                  <Th textAlign={'center'}>Email</Th>
+                  <Th textAlign={'center'}>Mobile Number</Th>
+                  <Th textAlign={'center'}>Block</Th>
+                  <Th textAlign={'center'}>Delete</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {allusers.map(el => {
                   return (
                     <Tr
                       key={el._id}
@@ -75,22 +89,60 @@ const AdminUsers = () => {
                       </Td>
                       <Td textAlign={'center'}>
                         <Button
-                          onClick={() => handleDelete(el._id)}
+                          variant="solid"
+                          _hover="none"
+                          onClick={onOpen}
                           bg={'red.500'}
                           color={'white'}
                         >
                           Delete
                         </Button>
+                        <AlertDialog
+                          isOpen={isOpen}
+                          leastDestructiveRef={cancelRef}
+                          onClose={onClose}
+                        >
+                          <AlertDialogOverlay>
+                            <AlertDialogContent>
+                              <AlertDialogHeader
+                                fontSize="lg"
+                                fontWeight="bold"
+                              >
+                                Delete Customer
+                              </AlertDialogHeader>
+
+                              <AlertDialogBody>
+                                Are you sure want to Delete?.
+                              </AlertDialogBody>
+
+                              <AlertDialogFooter>
+                                <Button ref={cancelRef} onClick={onClose}>
+                                  Cancel
+                                </Button>
+                                <Button
+                                  colorScheme="red"
+                                  onClick={() => {
+                                    // console.log(el._id)
+                                    handleDeleteUser(el._id);
+                                  }}
+                                  ml={3}
+                                >
+                                  Delete
+                                </Button>
+                              </AlertDialogFooter>
+                            </AlertDialogContent>
+                          </AlertDialogOverlay>
+                        </AlertDialog>
                       </Td>
                     </Tr>
                   );
-                })
-                .reverse()}
-            </Tbody>
-          </Table>
-        </TableContainer>
+                }).reverse()}
+              </Tbody>
+            </Table>
+          </TableContainer>
+        </Box>
       </Box>
-    </Box>
+    </>
   );
 };
 

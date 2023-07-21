@@ -16,12 +16,12 @@ import {
 } from '@chakra-ui/react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { adminLogin } from '../redux/AdminReducer/action';
+import { adminLogin } from '../../redux/AdminReducer/action';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import handsImg from '../Assets/admins/handsimage.avif';
-import saveukraine from '../Assets/admins/saveu.avif';
-import flaglady from '../Assets/admins/flaglady.avif';
-import AdminSideBar from '../components/AdminSideBar';
+
+// import flaglady from '../Assets/admins/flaglady.avif';
+import flaglady from '../../Assets/admins/flaglady.avif';
+
 
 export default function AdminLogin() {
   const [email, setEmail] = useState('');

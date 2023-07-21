@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AdminSideBar from '../components/AdminSideBar';
+import AdminSideBar from '../../components/AdminSideBar';
 import {
   Box,
   Flex,
@@ -31,24 +31,28 @@ import {
   Legend,
   Line,
 } from 'recharts';
-import { getdonations, getusersadmin } from '../redux/AdminReducer/action';
+import { getRegisterUSers, getdonations, getusersadmin } from '../../redux/AdminReducer/action';
 
 const AdminPage = () => {
   const dispatch = useDispatch();
-  const { users } = useSelector(store => store.adminReducer);
+  const { users ,searchusers, qval} = useSelector(store => store.adminReducer);
   const [totalamount, setTotalamount] = useState(0);
-  const [donors, setDonors] = useState(0);
-  // const [todayAmount, setTodayamount] = useState(0);
   const [todayDonation, setTodayDonation] = useState(0);
-
-  useEffect(()=>{
+  const [studyDonation,setStudyDonation] = useState(0)
+  const [ukrainedonation,setUkrainedonation] = useState(0)
+  const [donors, setDonors] = useState(0);
+  
+  
+  useEffect(() => {
     dispatch(getdonations());
-  },[dispatch])
+    // dispatch(getRegisterUSers())
+  }, [dispatch]);
 
   useEffect(() => {
-   
     let price = 0;
     let totalTodayDonation = 0;
+    let totalstudyDonation = 0;
+    let totalukraineDonation = 0;
     
     const today = new Date().setHours(0, 0, 0, 0);
     for (let i = 0; i < users.length; i++) {
@@ -57,14 +61,36 @@ const AdminPage = () => {
       if (donationDate === today) {
         totalTodayDonation += users[i].amount;
       }
+      if(users[i].category == "education"){
+        totalstudyDonation += users[i].amount
+      }else if(users[i].category == "ukrain donation"){
+        totalukraineDonation += users[i].amount
+      
+      }
     }
-
-    // console.log(countdonors)
+    
     setTotalamount(price);
     setTodayDonation(totalTodayDonation);
+    setStudyDonation(totalstudyDonation)
+    setUkrainedonation(totalukraineDonation)
   }, [users]);
 
- 
+  useEffect(()=>{
+    let userObj = {}
+    for (let i = 0; i < users.length; i++) {
+       userObj[users[i].userId] =  userObj[users[i].userId] + 1 || 1
+    }
+
+    // console.log(userObj)
+    let donorsdata =  Object.keys(userObj).length
+    // console.log(donors)
+    setDonors(donorsdata)
+  },[users])
+
+  const studypercentData = ((studyDonation / totalamount) * 100).toFixed();
+  const ukrainpercentData = ((ukrainedonation/totalamount)*100).toFixed();
+
+
 
   const data = [
     {
@@ -111,7 +137,7 @@ const AdminPage = () => {
     },
   ];
 
-  const percentData = ((30100 / 50000) * 100).toFixed();
+  
 
   return (
     <>
@@ -161,7 +187,7 @@ const AdminPage = () => {
               </Flex>
               <Flex mt="10px" alignItems="center">
                 <Heading as="h2" size="lg">
-                  {users.length}
+                  {donors}
                 </Heading>
                 <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
                   Updated 1day ago
@@ -203,15 +229,15 @@ const AdminPage = () => {
               </LineChart>
             </Box>
 
-            <Box bg="white" w="50%" borderRadius="10px">
-              <Flex justifyContent="space-between" alignItems="center" p="9px">
+            <Box bg="white" w="50%" borderRadius="10px" >
+              <Flex justifyContent="space-between"  alignItems="center" p="9px">
                 <Heading as="h3" size="sm">
                   Your Fundraising
                 </Heading>
                 <BsArrowUpRight />
               </Flex>
 
-              <Box p="9px">
+              <Box p="9px" cursor="pointer">
                 <Flex>
                   <WrapItem>
                     <Avatar
@@ -226,9 +252,9 @@ const AdminPage = () => {
                 </Flex>
               </Box>
 
-              <Box w="93%" borderRadius="5px" m="auto" h="5px" bg="gray.100">
+              <Box  w="93%" borderRadius="5px" m="auto" h="5px" bg="gray.100">
                 <Box
-                  w="82%"
+                    w={`${ukrainpercentData}%`}
                   borderRadius="5px"
                   h="5px"
                   bg="rgb(255,210,73)"
@@ -237,14 +263,14 @@ const AdminPage = () => {
 
               <Box>
                 <Heading as="h2" size="sm" m="10px 10px">
-                  $53000{' '}
+                    ${`${ukrainedonation}`}
                   <span style={{ color: 'gray', fontWeight: '100' }}>
-                    /70000
+                    /${`${totalamount}`}
                   </span>{' '}
                 </Heading>
               </Box>
 
-              <Box p="9px">
+              <Box  p="9px" cursor="pointer" >
                 <Flex>
                   <WrapItem>
                     <Avatar
@@ -263,7 +289,7 @@ const AdminPage = () => {
 
               <Box w="93%" borderRadius="5px" m="auto" h="5px" bg="gray.100">
                 <Box
-                  w={`${percentData}%`}
+                  w={`${studypercentData}%`}
                   borderRadius="5px"
                   h="5px"
                   bg="rgb(255,210,73)"
@@ -272,9 +298,9 @@ const AdminPage = () => {
 
               <Box>
                 <Heading as="h2" size="sm" m="10px 10px">
-                  $30100{' '}
+                ${`${studyDonation}`}
                   <span style={{ color: 'gray', fontWeight: '100' }}>
-                    /50000
+                  /${`${totalamount}`}
                   </span>{' '}
                 </Heading>
               </Box>
@@ -310,12 +336,13 @@ const AdminPage = () => {
                 </Tr>
               </Thead>
               <Tbody>
-                {users
+                {
+                  qval ? searchusers
                   .map(el => {
                     const dates = el.date.split('T')[0];
 
                     return (
-                      <Tr key={el.id}>
+                      <Tr key={el._id}>
                         <Td textAlign={'center'}>{el.name}</Td>
                         <Td textAlign={'center'}>{el.country}</Td>
                         <Td textAlign={'center'}>{el.category}</Td>
@@ -324,7 +351,22 @@ const AdminPage = () => {
                       </Tr>
                     );
                   })
-                  .reverse()}
+                  .reverse()  : users
+                  .map(el => {
+                    const dates = el.date.split('T')[0];
+
+                    return (
+                      <Tr key={el._id}>
+                        <Td textAlign={'center'}>{el.name}</Td>
+                        <Td textAlign={'center'}>{el.country}</Td>
+                        <Td textAlign={'center'}>{el.category}</Td>
+                        <Td textAlign={'center'}>{dates}</Td>
+                        <Td textAlign={'center'}>${el.amount}</Td>
+                      </Tr>
+                    );
+                  })
+                  .reverse()
+                }
               </Tbody>
             </Table>
           </TableContainer>

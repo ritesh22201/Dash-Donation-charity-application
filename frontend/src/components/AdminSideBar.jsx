@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, useEffect, useState } from 'react';
 import {
   IconButton,
   Avatar,
@@ -28,8 +28,6 @@ import {
   FiHome,
   FiTrendingUp,
   FiCompass,
-  FiStar,
-  FiSettings,
   FiMenu,
   FiBell,
   FiChevronDown,
@@ -40,12 +38,16 @@ import {
 import { IconType } from 'react-icons';
 import { VscOrganization } from 'react-icons/vsc';
 import { ReactText } from 'react';
-import AdminPage from '../pages/AdminPage';
+import AdminPage from '../pages/Admin/AdminPage';
 import logo from '../Assets/DashDonationLogo.png';
 import AdminUsers from './AdminUsers';
 import AdminOrganization from './AdminOrganization';
 import Admins from './Admins';
 import Fundraise from './Fundraise';
+import axios from 'axios';
+import { baseUrl } from '../url';
+import { useDispatch, useSelector } from 'react-redux';
+import { searchDonors } from '../redux/AdminReducer/action';
 
 interface LinkItemProps {
   name: string;
@@ -98,39 +100,41 @@ interface SidebarProps extends BoxProps {
 const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
   return (
     <>
-
-    <Box
-      transition="3s ease"
-      bg={useColorModeValue('#0158B8', 'gray.900')}
-      color="white"
-      borderRight="1px"
-      borderRightColor={useColorModeValue('gray.200', 'gray.700')}
-      w={{ base: 'full', md: 60 }}
-      pos="fixed"
-      h="full"
-      {...rest}
-    >
-      <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Text
-          fontSize="2xl"
-          fontFamily="monospace"
-          color="#FFD249"
-          fontWeight="bold"
-        >
-          {/* {logo} */}
-          DashDonation
-        </Text>
-        <CloseButton display={{ base: 'flex', md: 'none' }} onClick={onClose} />
-      </Flex>
-      {LinkItems.map(link => (
-        <NavItem key={link.name} href={link.href} icon={link.icon}>
-          {link.name}
-        </NavItem>
-      ))}
-      <Box mt="200px" textAlign={"center"} variant="ghost">
-      <Button>Logout</Button>
+      <Box
+        transition="3s ease"
+        bg={useColorModeValue('#0158B8', 'gray.900')}
+        color="white"
+        borderRight="1px"
+        borderRightColor={useColorModeValue('gray.200', 'gray.700')}
+        w={{ base: 'full', md: 60 }}
+        pos="fixed"
+        h="full"
+        {...rest}
+      >
+        <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
+          <Text
+            fontSize="2xl"
+            fontFamily="monospace"
+            color="#FFD249"
+            fontWeight="bold"
+          >
+            {/* {logo} */}
+            DashDonation
+          </Text>
+          <CloseButton
+            display={{ base: 'flex', md: 'none' }}
+            onClick={onClose}
+          />
+        </Flex>
+        {LinkItems.map(link => (
+          <NavItem key={link.name} href={link.href} icon={link.icon}>
+            {link.name}
+          </NavItem>
+        ))}
+        <Box mt="200px" textAlign={'center'} variant="ghost">
+          <Button>Logout</Button>
+        </Box>
       </Box>
-    </Box>
     </>
   );
 };
@@ -182,6 +186,23 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [status, setStatus] = useState(false);
+  
+  const dispatch = useDispatch()
+  const {searchusers,qval} = useSelector(store => store.adminReducer)
+  console.log(searchusers)
+
+
+  const handleSearch = val => {
+    dispatch(searchDonors(val))
+  };
+
+  const handleDebounce = val => {
+    if (id) clearTimeout(id);
+    var id = setTimeout(() => {
+      handleSearch(val);
+    }, 1000);
+  };
+
   return (
     <>
       <Flex
@@ -221,11 +242,13 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           aria-label="open menu"
           icon={<FiSearch />}
         /> */}
-          {status ? <Input type="text" placeholder="Search Here..." /> : ''}
+          {status ? <Input  type="text"  onChange={(e)=>handleDebounce(e.target.value)} placeholder="Search Here..." /> : ''}
           {status ? (
-            <CloseButton onClick={() => setStatus(false)} />
+            <CloseButton onClick={() => {
+              setStatus(false)
+            }} />
           ) : (
-            <FiSearch onClick={() => setStatus(true)} />
+            <FiSearch cursor={"pointer"} onClick={() => setStatus(true)} />
           )}
 
           <IconButton
@@ -279,19 +302,19 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Flex>
         </HStack>
       </Flex>
-      {
-      window.location.pathname == '/dashboard' ? (
+      {window.location.pathname == '/dashboard'  ? (
         <AdminPage />
-      ) : window.location.pathname === '/adusers' ? (
+      )  : window.location.pathname === '/adusers' ? (
         <AdminUsers />
       ) : window.location.pathname === '/org' ? (
         <AdminOrganization />
       ) : window.location.pathname === '/adminusers' ? (
         <Admins />
-      ) : 
-         window.location.pathname === "/funds" ? (<Fundraise/>) : ""
-      
-      }
+      ) : window.location.pathname === '/funds' ? (
+        <Fundraise />
+      ) : (
+        ''
+      )}
     </>
   );
 };

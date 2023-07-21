@@ -4,10 +4,12 @@ import {
   ADMIN_GET_ADMIN,
   ADMIN_GET_ALL_SUCCESS,
   ADMIN_GET_ORG_SUCCESS,
+  ADMIN_GET_REGISTERED_USERS,
   ADMIN_GET_SUCCESS,
   ADMIN_LOGIN_FAILURE,
   ADMIN_LOGIN_SUCCESS,
   ADMIN_REQUEST_ACTION,
+  SEARCH_VAL,
 } from './actionTypes';
 
 const initialState = {
@@ -16,12 +18,18 @@ const initialState = {
   allusers: [],
   orgs: [],
   admins: [],
+  regusers:[],
+  searchusers : [],
   isError: false,
   isAuth: false,
+  qval:false,
   token: '',
   errmsg: '',
   msg: '',
+
 };
+
+console.log(initialState.allusers)
 
 export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -76,6 +84,15 @@ export const reducer = (state = initialState, { type, payload }) => {
       };
     }
 
+    case ADMIN_GET_REGISTERED_USERS : {
+      return {
+        ...state,
+        isLoading : false,
+        regusers : payload,
+        isError : false
+      }
+    }
+
     case ADMIN_FAILURE_ACTION: {
       return {
         ...state,
@@ -93,17 +110,17 @@ export const reducer = (state = initialState, { type, payload }) => {
         errmsg: payload,
       };
     }
-    case ADMIN_DELETE_SUCCESS:
-      const { deleteUserId, msg } = payload;
-      const updatedUsers = state.allusers.filter(
-        user => user.id !== deleteUserId
-      );
+
+    case SEARCH_VAL : {
       return {
         ...state,
         isLoading: false,
-        allusers: updatedUsers,
-        msg: msg,
-      };
+        isError: true,
+        searchusers : payload,
+        qval:true
+      }
+    }
+   
     default: {
       return state;
     }

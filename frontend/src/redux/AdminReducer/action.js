@@ -6,16 +6,18 @@ import {
   ADMIN_GET_ADMIN,
   ADMIN_GET_ALL_SUCCESS,
   ADMIN_GET_ORG_SUCCESS,
+  ADMIN_GET_REGISTERED_USERS,
   ADMIN_GET_SUCCESS,
   ADMIN_LOGIN_FAILURE,
   ADMIN_LOGIN_SUCCESS,
   ADMIN_REQUEST_ACTION,
+  SEARCH_VAL,
 } from './actionTypes';
 
 export const getdonations = () => dispatch => {
   dispatch({ type: ADMIN_REQUEST_ACTION });
   axios
-    .get(`${baseUrl}/admin/userDetails/`)
+    .get(`${baseUrl}/admin/userDetails`)
     .then(res => {
       // console.log(res.data)
       dispatch({ type: ADMIN_GET_SUCCESS, payload: res.data });
@@ -38,16 +40,12 @@ export const getAllusers = () => dispatch => {
     });
 };
 
-export const deleteUsers = id => dispatch => {
+export const deleteUsers = id => async(dispatch) => {
   dispatch({ type: ADMIN_REQUEST_ACTION });
-  axios
+  return await axios
     .delete(`${baseUrl}/admin/userDetails/delete/${id}`)
     .then(res => {
-      // console.log(res.data.deleteUsers._id)
-      dispatch({
-        type: ADMIN_DELETE_SUCCESS,
-        payload: { deleteUserId: res.data.deleteUsers._id, msg: res.data.msg },
-      });
+    console.log(res)
     })
     .catch(err => {
       dispatch({ type: ADMIN_FAILURE_ACTION });
@@ -93,3 +91,31 @@ export const adminLogin = payload => dispatch => {
       dispatch({ type: ADMIN_LOGIN_FAILURE, payload: err.response.data.msg });
     });
 };
+
+
+// export const getRegisterUSers = () => (dispatch) => {
+//     dispatch({type : ADMIN_REQUEST_ACTION})
+//    axios.get('https://odd-lion-life-jacket.cyclic.app/users')
+//    .then(res => {
+//    console.log(res.data)
+//       dispatch({type : ADMIN_GET_REGISTERED_USERS, payload : res.data})
+//    })
+//    .catch(error => {
+//      dispatch({type : ADMIN_FAILURE_ACTION, payload : error.response.data.msg})
+ 
+//    })
+// }
+
+export const searchDonors = (val) => (dispatch) => {
+    dispatch({ type: ADMIN_REQUEST_ACTION });
+      axios
+        .get(`${baseUrl}/admin/userDetails?q=${val}`)
+        .then(res => {
+        //   console.log(res);
+          // setData(res.data);
+          dispatch({type:SEARCH_VAL , payload : res.data})
+        })
+        .catch(err => {
+            dispatch({type: ADMIN_LOGIN_FAILURE});
+        });
+}
