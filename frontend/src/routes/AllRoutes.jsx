@@ -6,11 +6,15 @@ import AdminUsers from '../components/AdminUsers'
 
 
 import Home from '../pages/Home'
-import {Routes, Route} from "react-router-dom"
+import PrivateRoutes from '../components/PrivateRoutes'
+import DonationList from '../pages/donation'
 const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home/>} />
+     <Route path='/private' element={<PrivateRoutes/>} >
+      <Route path='/donatiuon' element={<DonationList/>} />
+     </Route>
     </Routes>
 
   )

@@ -9,7 +9,9 @@ import SignupPage from './pages/SignupPage';
 
 import AdminSideBar from './components/AdminSideBar';
 import AdminPage from './pages/AdminPage';
-import AllRoutes from './routes/AllRoutes';
+import DonationList from './pages/donation';
+import DonationModal from './pages/AddDonation';
+import MoneyBox from './pages/DonationData';
 
 
 
@@ -19,8 +21,11 @@ function App() {
   //  <LoginPage/>
   // <SignupPage/>
   <>
-  <AdminSideBar/>
-  <AllRoutes/>
+  {/* <AdminSideBar/>
+  <AllRoutes/> */}
+  <DonationList/>
+  {/* <DonationModal/> */}
+  <MoneyBox/>
   </>
 
   );
