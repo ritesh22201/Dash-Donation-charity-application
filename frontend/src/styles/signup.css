@@ -7,11 +7,11 @@
 .signup{
     top:50px;
     border: 1px solid black;
-    width: 40%;
+    width: 50%;
     background-color: whitesmoke;
     background: rgba(197, 128, 106, 0.498);
     border-radius: 10px;
-    height: 500px;
+    height: 800px;
     margin-top: 70px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
     transition: ease-in;
@@ -33,7 +33,7 @@
     /* background-color : blue ; */
     background: rgba(197, 128, 106, 0.3);
     border-radius : 90px 10px 100px 10px;
-    height: 600px;
+    height: 00px;
     box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 .signup>input{
@@ -132,9 +132,9 @@ text-align: left;
         height: 460px;
     }
     .signup{
-        width: 70%;
-        height: 400px;
-        margin-top: 40px;
+        width: 90%;
+        height: 420px;
+        margin-top: 1px;
         }
     
     }

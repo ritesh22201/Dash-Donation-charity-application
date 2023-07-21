@@ -11,6 +11,8 @@ import AllRoutes from './routes/AllRoutes';
 import Navbar from './components/Navbar';
 
 
+import OrgCards from './components/OrgCards';
+
 
 
 function App() {
@@ -22,6 +24,12 @@ function App() {
   {/* <AdminSideBar/> */}
   <Navbar/>
   <AllRoutes/>
+
+  {/* <AdminSideBar/> */}
+  {/* <AllRoutes/> */}
+  {/* <SignupPage/> */}
+  {/* <LoginPage/> */}
+  <OrgCards/>
   </>
 
   );
