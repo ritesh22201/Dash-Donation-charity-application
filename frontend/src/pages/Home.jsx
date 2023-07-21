@@ -1,12 +1,17 @@
 import React from 'react'
 import styled from "styled-components"
 import  background  from '../Assets/background.png';
-
+import { Box } from '@chakra-ui/react';
+import Help from "./Help"
+import About from "./About"
+import Partners from "./Partners"
+import Contact from "./Contact"
+import Footer from "./Footer"
 function Home() {
   return (
     <DIV>
       
-        <div>
+        <Box  bgImage={background}  backgroundRepeat={"repeat-x"}>
            <div className='heading1'>
             <h1>HELP</h1>
             <h1>UKRAINE</h1>
@@ -19,12 +24,18 @@ function Home() {
               <img src="https://www.charityhero.live/static/media/BGStor.db895fe2f79e4f4272fb1a3bcb554c67.svg" alt="" />
             </div>
            </div>
-        </div>
+           <About/>
+       <Help/>
+       <Partners/>
+       <Contact/>
+       <Footer/>
+        </Box>
     </DIV>
   )
 }
 
 const DIV = styled.div`
+
  /* background-image: url(background); */
  /* background-color: #cccccc; */
 /* height: 1000px; */
