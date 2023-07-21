@@ -1,17 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import AdminSideBar from '../components/AdminSideBar';
-import { Box, Flex, Text, Heading, Image, Table,
-    Thead,
-    Tbody,
-    Tfoot,
-    Tr,
-    Th,
-    Td,
-    TableCaption,
-    TableContainer,
-    Button, } from '@chakra-ui/react';
+import {
+  Box,
+  Flex,
+  Text,
+  Heading,
+  Image,
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+  Button,
+} from '@chakra-ui/react';
 import { BsArrowUpRight } from 'react-icons/bs';
-import {useDispatch,useSelector} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux';
 import { Avatar, AvatarBadge, AvatarGroup, WrapItem } from '@chakra-ui/react';
 import {
   AreaChart,
@@ -24,49 +31,40 @@ import {
   Legend,
   Line,
 } from 'recharts';
-import { getusersadmin } from '../redux/AdminReducer/action';
+import { getdonations, getusersadmin } from '../redux/AdminReducer/action';
 
 const AdminPage = () => {
+  const dispatch = useDispatch();
+  const { users } = useSelector(store => store.adminReducer);
+  const [totalamount, setTotalamount] = useState(0);
+  const [donors, setDonors] = useState(0);
+  // const [todayAmount, setTodayamount] = useState(0);
+  const [todayDonation, setTodayDonation] = useState(0);
 
-    const dispatch = useDispatch()
-    const {users} = useSelector((store)=>store.adminReducer)
-    const [totalamount,setTotalamount] = useState(0)
-    const [donors,setDonors] = useState(0)
-    const [todayAmount,setTodayamount] = useState(0)
+  useEffect(()=>{
+    dispatch(getdonations());
+  },[dispatch])
 
-    useEffect(()=>{
-       dispatch(getusersadmin())
-       let price = 0
-       let todaysprice = 0
+  useEffect(() => {
+   
+    let price = 0;
+    let totalTodayDonation = 0;
     
-       for(let i=0; i<users.length; i++){
-        price += users[i].amount
-      
-       }
-     
-     
-      // console.log(countdonors)
-      setTotalamount(price)
-    
-    },[users])
+    const today = new Date().setHours(0, 0, 0, 0);
+    for (let i = 0; i < users.length; i++) {
+      price += users[i].amount;
+      const donationDate = new Date(users[i].date).setHours(0, 0, 0, 0);
+      if (donationDate === today) {
+        totalTodayDonation += users[i].amount;
+      }
+    }
 
-    // console.log(users)
+    // console.log(countdonors)
+    setTotalamount(price);
+    setTodayDonation(totalTodayDonation);
+  }, [users]);
 
-  //  useEffect(()=>{
-  //   let donorObj = {}
-  //   for(let i=0; i<users.length; i++){
-  //    donorObj[users[i].userId]  = 1 
-  //   }
-  //   let countdonors =  Object.keys(donorObj).length
  
-  //   setDonors(countdonors)
-  //  },[])
-
-  //  console.log(donors)
-
-
-    // console.log(users)
-    
 
   const data = [
     {
@@ -113,75 +111,70 @@ const AdminPage = () => {
     },
   ];
 
-  const percentData = ((30100/50000)*100).toFixed()
+  const percentData = ((30100 / 50000) * 100).toFixed();
 
   return (
     <>
-     {/* <AdminSideBar/> */}
-      <Box display="flex" flexDirection="column"  alignItems="flex-end" p="20px 60px 20px 20px" >
-      
-        <Box  w="80%">
+      {/* <AdminSideBar/> */}
+      <Box
+        display="flex"
+        flexDirection="column"
+        alignItems="flex-end"
+        p="20px 60px 20px 20px"
+      >
+        <Box w="80%">
+          <Flex w="100%" justifyContent="space-around">
+            <Box w="32%" p="30px" bg="rgb(255,210,73)" borderRadius="10px">
+              <Flex justifyContent="space-between">
+                <Text>Total Donation</Text>
+                <Text fontWeight="1000">...</Text>
+              </Flex>
+              <Flex mt="10px" alignItems="center">
+                <Heading as="h2" size="lg">
+                  ${totalamount}
+                </Heading>
+                <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
+                  Updated 1day ago
+                </Text>
+              </Flex>
+            </Box>
 
-        
-        <Flex  w="100%" justifyContent="space-around">
-          <Box
-           
-            w="32%"
-            p="30px"
-            bg="rgb(255,210,73)"
-            borderRadius="10px"
-          >
-            <Flex justifyContent="space-between">
-              <Text>Total Donation</Text>
-              <Text fontWeight="1000">...</Text>
-            </Flex>
-            <Flex mt="10px" alignItems="center">
-              <Heading as="h2" size="lg">
-                ${totalamount}
-              </Heading>
-              <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
-                Updated 1day ago
-              </Text>
-            </Flex>
-          </Box>
+            <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
+              <Flex justifyContent="space-between">
+                <Text>Donation Today</Text>
+                <Text fontWeight="1000">...</Text>
+              </Flex>
+              <Flex mt="10px" alignItems="center">
+                <Heading as="h2" size="lg">
+                  ${todayDonation}
+                </Heading>
+                <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
+                  Updated 30min ago
+                </Text>
+              </Flex>
+            </Box>
 
-          <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
-            <Flex justifyContent="space-between">
-              <Text>Donation Today</Text>
-              <Text fontWeight="1000">...</Text>
-            </Flex>
-            <Flex mt="10px" alignItems="center">
-              <Heading as="h2" size="lg">
-                $Amount
-              </Heading>
-              <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
-                Updated 30min ago
-              </Text>
-            </Flex>
-          </Box>
-         
-
-          <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
-            <Flex justifyContent="space-between">
-              <Text>Total Donor</Text>
-              <Text fontWeight="1000">...</Text>
-            </Flex>
-            <Flex mt="10px" alignItems="center">
-              <Heading as="h2" size="lg">
-                {users.length}
-              </Heading>
-              <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
-                Updated 1day ago
-              </Text>
-            </Flex>
-          </Box>
-        </Flex>
+            <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
+              <Flex justifyContent="space-between">
+                <Text>Total Donor</Text>
+                <Text fontWeight="1000">...</Text>
+              </Flex>
+              <Flex mt="10px" alignItems="center">
+                <Heading as="h2" size="lg">
+                  {users.length}
+                </Heading>
+                <Text ml="8px" mt="6px" fontSize="13px" fontWeight="thin">
+                  Updated 1day ago
+                </Text>
+              </Flex>
+            </Box>
+          </Flex>
         </Box>
 
-        <Box w="80%"  mt="50px">
-          <Flex justifyContent={'space-between'} gap="47px"> 
+        <Box w="80%" mt="50px">
+          <Flex justifyContent={'space-between'} gap="47px">
             <Box bg="white" w="70%" borderRadius="10px" p="10px">
-              <Heading  as="h2" size="sm">
+              <Heading as="h2" size="sm">
                 Donation Analytics
               </Heading>
               <LineChart
@@ -210,7 +203,7 @@ const AdminPage = () => {
               </LineChart>
             </Box>
 
-            <Box  bg="white" w="50%" borderRadius="10px">
+            <Box bg="white" w="50%" borderRadius="10px">
               <Flex justifyContent="space-between" alignItems="center" p="9px">
                 <Heading as="h3" size="sm">
                   Your Fundraising
@@ -288,57 +281,53 @@ const AdminPage = () => {
 
               {/* // */}
             </Box>
-            
           </Flex>
         </Box>
-        
 
-                {/*  */}
+        {/*  */}
 
-        <Box  w="80%"  borderRadius="10px" mt="40px" p="20px"  bg="white">
-        <Flex justifyContent="space-between" alignItems="center">
-         <Heading as="h3" size="sm">Recent Donations</Heading>
-         <Heading as="h3" size="md">...</Heading>
-        </Flex>
-           
-        {/* <Table></Table> */}
-        <TableContainer>
-  <Table variant='simple'>
-    {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
-    <Thead >
-      <Tr >
-        <Th  textAlign={"center"}>Name</Th>
-        <Th  textAlign={"center"}>Location</Th>
-        <Th  textAlign={"center"}>Category</Th>
-        <Th  textAlign={"center"}>Date</Th>
-        <Th  textAlign={"center"}>Amount</Th>
-      
-      </Tr>
-    </Thead>
-    <Tbody>
+        <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
+          <Flex justifyContent="space-between" alignItems="center">
+            <Heading as="h3" size="sm">
+              Recent Donations
+            </Heading>
+            <Heading as="h3" size="md">
+              ...
+            </Heading>
+          </Flex>
 
-      {
-        users.map((el)=>{
-          
-          const dates = el.date.split("T")[0]
-          
+          {/* <Table></Table> */}
+          <TableContainer>
+            <Table variant="simple">
+              {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
+              <Thead>
+                <Tr>
+                  <Th textAlign={'center'}>Name</Th>
+                  <Th textAlign={'center'}>Location</Th>
+                  <Th textAlign={'center'}>Category</Th>
+                  <Th textAlign={'center'}>Date</Th>
+                  <Th textAlign={'center'}>Amount</Th>
+                </Tr>
+              </Thead>
+              <Tbody>
+                {users
+                  .map(el => {
+                    const dates = el.date.split('T')[0];
 
-         return <Tr key={el.id}>
-            <Td  textAlign={"center"}>{el.name}</Td>
-            <Td  textAlign={"center"}>{el.country}</Td>
-            <Td  textAlign={"center"}>{el.category}</Td>
-            <Td  textAlign={"center"}>{dates}</Td>
-            <Td textAlign={"center"}>${el.amount}</Td>
-            
-          </Tr>
-        }).reverse()
-      }
-     
-    </Tbody>
-    
-  </Table>
-</TableContainer>
-
+                    return (
+                      <Tr key={el.id}>
+                        <Td textAlign={'center'}>{el.name}</Td>
+                        <Td textAlign={'center'}>{el.country}</Td>
+                        <Td textAlign={'center'}>{el.category}</Td>
+                        <Td textAlign={'center'}>{dates}</Td>
+                        <Td textAlign={'center'}>${el.amount}</Td>
+                      </Tr>
+                    );
+                  })
+                  .reverse()}
+              </Tbody>
+            </Table>
+          </TableContainer>
         </Box>
       </Box>
     </>

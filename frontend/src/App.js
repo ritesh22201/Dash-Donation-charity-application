@@ -16,8 +16,8 @@ function App() {
   //  <LoginPage/>
   // <SignupPage/>
   <>
-  <AdminSideBar/>
   <AllRoutes/>
+  <AdminSideBar/>
   </>
   );
 }
