@@ -11,7 +11,6 @@ const initialState = {
   isRegistered: '',
   auth: false,
   errorMsg : '',
- 
   token: '',
 };
 
