@@ -314,7 +314,8 @@ header {
 	/* background-color;
 	 */
 	background: none;
-	color: white;
+	color: black;
+	font-size: larger;
 	position:absolute;
 	z-index: 100;
 	width: 100%;
@@ -322,7 +323,8 @@ header {
 
 nav a {
 	margin: 0 1rem;
-	color: white;
+	color: black;
+	font-weight: 600;
 	text-decoration: none;
 }
 
