@@ -28,6 +28,7 @@ export const login = (userData) => (dispatch) => {
     console.log(error.response.data.msg)
    })
 }
+
 export const logout = (token) => (dispatch) => {
    dispatch({type : AUTH_REQUEST})
   axios.post('https://odd-lion-life-jacket.cyclic.app/users/logout', token)
@@ -42,3 +43,4 @@ export const logout = (token) => (dispatch) => {
    console.log(error)
   })
 }
+
