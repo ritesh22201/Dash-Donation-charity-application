@@ -7,6 +7,7 @@ import AllRoutes from './routes/AllRoutes';
 import AdminSideBar from './components/AdminSideBar';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
+import OrgCards from './components/OrgCards';
 
 
 
@@ -15,8 +16,9 @@ function App() {
   <>
   {/* <AdminSideBar/> */}
   {/* <AllRoutes/> */}
-  <SignupPage/>
+  {/* <SignupPage/> */}
   {/* <LoginPage/> */}
+  <OrgCards/>
   </>
 
   );
