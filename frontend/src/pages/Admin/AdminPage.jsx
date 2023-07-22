@@ -32,10 +32,12 @@ import {
   Line,
 } from 'recharts';
 import { getRegisterUSers, getdonations, getusersadmin } from '../../redux/AdminReducer/action';
+import Error from '../../components/Error';
+import Loader from '../../components/Loader';
 
 const AdminPage = () => {
   const dispatch = useDispatch();
-  const { users ,searchusers, qval} = useSelector(store => store.adminReducer);
+  const { users ,searchusers, qval , isError, isLoading} = useSelector(store => store.adminReducer);
   const [totalamount, setTotalamount] = useState(0);
   const [todayDonation, setTodayDonation] = useState(0);
   const [studyDonation,setStudyDonation] = useState(0)
@@ -76,6 +78,7 @@ const AdminPage = () => {
   }, [users]);
 
   useEffect(()=>{
+  
     let userObj = {}
     for (let i = 0; i < users.length; i++) {
        userObj[users[i].userId] =  userObj[users[i].userId] + 1 || 1
@@ -137,11 +140,20 @@ const AdminPage = () => {
     },
   ];
 
+
+  if(isError){
+    return <Error/>
+  }
+
+  if(isLoading){
+    return <Loader/>
+  }
+
   
 
   return (
     <>
-      {/* <AdminSideBar/> */}
+      <AdminSideBar/>
       <Box
         display="flex"
         flexDirection="column"
@@ -150,7 +162,7 @@ const AdminPage = () => {
       >
         <Box w="80%">
           <Flex w="100%" justifyContent="space-around">
-            <Box w="32%" p="30px" bg="rgb(255,210,73)" borderRadius="10px">
+            <Box cursor="pointer" w="32%" p="30px" bg="rgb(255,210,73)" borderRadius="10px">
               <Flex justifyContent="space-between">
                 <Text>Total Donation</Text>
                 <Text fontWeight="1000">...</Text>
@@ -165,7 +177,7 @@ const AdminPage = () => {
               </Flex>
             </Box>
 
-            <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
+            <Box ml="50px" cursor="pointer" w="33%" p="30px" bg="white" borderRadius="10px">
               <Flex justifyContent="space-between">
                 <Text>Donation Today</Text>
                 <Text fontWeight="1000">...</Text>
@@ -180,7 +192,7 @@ const AdminPage = () => {
               </Flex>
             </Box>
 
-            <Box ml="50px" w="33%" p="30px" bg="white" borderRadius="10px">
+            <Box ml="50px" cursor="pointer" w="33%" p="30px" bg="white" borderRadius="10px">
               <Flex justifyContent="space-between">
                 <Text>Total Donor</Text>
                 <Text fontWeight="1000">...</Text>
@@ -199,11 +211,12 @@ const AdminPage = () => {
 
         <Box w="80%" mt="50px">
           <Flex justifyContent={'space-between'} gap="47px">
-            <Box bg="white" w="70%" borderRadius="10px" p="10px">
+            <Box cursor="pointer" bg="white" w="70%" borderRadius="10px" p="10px">
               <Heading as="h2" size="sm">
                 Donation Analytics
               </Heading>
               <LineChart
+              cursor="pointer"
                 width={730}
                 height={250}
                 data={data}
@@ -312,7 +325,7 @@ const AdminPage = () => {
 
         {/*  */}
 
-        <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
+        <Box cursor="pointer" w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
           <Flex justifyContent="space-between" alignItems="center">
             <Heading as="h3" size="sm">
               Recent Donations

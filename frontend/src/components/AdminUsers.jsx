@@ -23,13 +23,16 @@ import {
 import { deleteUsers, getAllusers } from '../redux/AdminReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
 import { useDisclosure} from '@chakra-ui/hooks';
+import Loader from './Loader';
+import Error from './Error'
 
 const AdminUsers = () => {
   const dispatch = useDispatch();
-  const { allusers } = useSelector(store => store.adminReducer);
+  const { allusers,isError,isLoading } = useSelector(store => store.adminReducer);
 
   useEffect(() => {
     dispatch(getAllusers());
+
   }, []);
 
   // console.log(allusers)
@@ -40,9 +43,17 @@ const AdminUsers = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const cancelRef = React.useRef();
   const handleDeleteUser = id => {
-    onClose();
+    // onClose();
     handleDelete(id);
   };
+
+  if(isError){
+    return <Error/>
+  }
+
+  if(isLoading){
+    return <Loader/>
+  }
 
   return (
     <>
@@ -91,7 +102,8 @@ const AdminUsers = () => {
                         <Button
                           variant="solid"
                           _hover="none"
-                          onClick={onOpen}
+                          // onClick={onOpen}
+                          onClick={()=> handleDeleteUser(el._id)}
                           bg={'red.500'}
                           color={'white'}
                         >
@@ -122,7 +134,6 @@ const AdminUsers = () => {
                                 <Button
                                   colorScheme="red"
                                   onClick={() => {
-                                    // console.log(el._id)
                                     handleDeleteUser(el._id);
                                   }}
                                   ml={3}
@@ -136,7 +147,7 @@ const AdminUsers = () => {
                       </Td>
                     </Tr>
                   );
-                }).reverse()}
+                })}
               </Tbody>
             </Table>
           </TableContainer>
