@@ -7,14 +7,14 @@ import { fetchDonations } from '../redux/donationReducer/action';
 // "email":"ritesh@gmail.com",
 // "password":"Ritesh@123"
 
+const token=localStorage.getItem('ch-token');
 const DonationList = () => {
   const dispatch=useDispatch();
   useEffect(()=>{
-    dispatch(fetchDonations())
+    dispatch(fetchDonations(token))
   })
 
   const donations=useSelector((store)=>store.donationReducer.donations)
-console.log(localStorage.getItem('ch-token'));
 
   const containerStyle = {
     padding: '20px',

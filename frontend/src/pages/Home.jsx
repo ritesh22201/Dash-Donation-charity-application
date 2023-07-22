@@ -35,11 +35,6 @@ function Home() {
               <img src="https://www.charityhero.live/static/media/BGStor.db895fe2f79e4f4272fb1a3bcb554c67.svg" alt="" />
             </div>
            </div>
-<<<<<<< HEAD
-           <About/>
-=======
-            <About/>
->>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
        <Help/>
        <Partners/>
        <Contact/>

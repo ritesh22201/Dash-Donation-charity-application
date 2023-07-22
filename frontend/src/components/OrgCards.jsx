@@ -8,10 +8,6 @@ const OrgCards = ({name,email,description,website,category}) => {
         <p>{email}</p>
         <p>{website}</p>
         <p>{category}</p>
-<<<<<<< HEAD
-=======
-        <button>Donate</button>
->>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
     </div>
   )
 }

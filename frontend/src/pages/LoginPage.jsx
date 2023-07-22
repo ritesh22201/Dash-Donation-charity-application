@@ -34,7 +34,6 @@ const LoginPage = () => {
         dispatch(login(userData))
         window.location.reload(true);
       }
-
    useEffect(()=>{
     if(token){
       toast({

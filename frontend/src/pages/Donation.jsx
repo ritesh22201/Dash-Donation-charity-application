@@ -2,9 +2,10 @@ import React, { useState } from 'react'
 import background from "../Assets/background.png"
 import { Box} from '@chakra-ui/react'
 import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
 function Donation() {
     const [showMore, setShowMore] = useState(false)
-
+    const navigation=useNavigate();
   return (
     <DIV>
         <Box className='mainContainer' bgImage={background}>
@@ -31,6 +32,7 @@ function Donation() {
         <div className='load-more' onClick={()=> setShowMore(!showMore)}>{
             showMore ? " show less": " load more"
         }</div>
+        <button onClick={()=>navigation('/donationdata')} >Your Donations</button>
         </div>
         <div className='heading-last'>
             <h1>SAVE </h1>
@@ -39,7 +41,7 @@ function Donation() {
         </div>
         </div>
         </Box>
-
+            
     </DIV>
   )
 }
