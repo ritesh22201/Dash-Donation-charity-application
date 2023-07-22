@@ -95,6 +95,8 @@ function About() {
 }
 const DIV= styled.div`
 
+     /* box-sizing: border-box; */
+    /* outline: 1px solid limegreen !important; */
 .worksHeadin{
     font-size: 30px;
     font-weight: 800;
@@ -168,7 +170,13 @@ padding: 50px;
     margin-left: 50px;
 }
 
+@media only screen and (max-width: 1024px) {
 
+.flagImg{
+    visibility: hidden;
+}
+
+}
 
 
 `

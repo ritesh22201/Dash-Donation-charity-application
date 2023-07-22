@@ -4,6 +4,7 @@ import AdminPage from '../pages/Admin/AdminPage';
 import AdminLogin from '../pages/Admin/AdminLogin';
 import Home from '../pages/Home';
 import Donation from '../pages/Donation'
+
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import AdminSideBar from '../components/AdminSideBar';
@@ -26,5 +27,21 @@ const AllRoutes = () => {
     </>
   )
 }
+
+import SignupPage from '../pages/SignupPage'
+import LoginPage from '../pages/LoginPage'
+const AllRoutes = () => {
+  return (
+    <Routes>
+      <Route path="/" element={<Home/>} />
+      <Route path="/adminlogin" element={<AdminLogin />} />
+      <Route path="/admin" element={<AdminPage/>} />
+      <Route path="/donation" element={<Donation/>} />
+      <Route path="/users/register" element={<SignupPage/>} />
+      <Route path="/users/login" element={<LoginPage/>} />
+    </Routes>
+  )
+}
+
 
 export default AllRoutes;

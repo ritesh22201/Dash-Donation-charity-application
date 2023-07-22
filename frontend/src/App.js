@@ -2,14 +2,27 @@ import React from 'react';
 import {
   Box
 } from '@chakra-ui/react';
+<<<<<<< HEAD
 import AdminSideBar from './components/AdminSideBar';
 import AllRoutes from './routes/AllRoutes';
 import Navbar from './components/Navbar';
 import OrgCards from './components/OrgCards';
+=======
+import LoginPage from './pages/LoginPage';
+import SignupPage from './pages/SignupPage';
+import AdminSideBar from './components/AdminSideBar';
+// import AdminPage from './pages/AdminPage';
+import AllRoutes from './routes/AllRoutes';
+import Navbar from './components/Navbar';
+import OrgCards from './components/OrgCards';
+import Organization from './pages/Organization';
+
+>>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
 
 
 function App() {
   return (
+<<<<<<< HEAD
   <>
   
   {/* {
@@ -22,6 +35,11 @@ function App() {
   <Navbar/>
   <AllRoutes/>
   <OrgCards/>
+=======
+
+  <>
+    <LoginPage/>
+>>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
   </>
   );
 }

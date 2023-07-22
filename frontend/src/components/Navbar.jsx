@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 // import { ReactNode } from 'react';
 // import styled from "styled-components"
 // import Home from '../pages/Home';
@@ -225,6 +226,53 @@ import { logout } from '../redux/authreducer/action';
 	// 	);
 	// 	console.log('check');
 	// }
+=======
+
+import {
+	Menu,
+	MenuButton,
+	MenuList,
+	MenuItem,
+	Button
+  } from '@chakra-ui/react'
+  
+
+import {  useState } from "react";
+import {Link,useNavigate} from "react-router-dom"
+import { FaBars, FaTimes } from "react-icons/fa";
+import styled from "styled-components";
+import {CgProfile} from "react-icons/cg"
+import {FiLogIn} from "react-icons/fi"
+import { Icon } from "@chakra-ui/react";
+import {SearchIcon} from "@chakra-ui/icons"
+import DASHDONATION  from "../Assets/DASHDONATION.png"
+import { useDispatch } from 'react-redux';
+import { logout } from '../redux/authreducer/action';
+
+ const Navbar = () =>{
+	
+	const [navClass, setNavClass] = useState(false)
+    console.log(window.location.pathname);
+	
+
+	const showNavbar = () => {
+		setNavClass(!navClass)		
+	};
+
+	  const token = localStorage.getItem('ch-token') || '';
+
+	  const dispatch = useDispatch()
+
+	const handleLogOut = () =>{
+
+			localStorage.removeItem("ch-token")
+			dispatch(logout(token))
+			window.location.reload(true);
+
+	}
+
+	
+>>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
 	
 const navgite = useNavigate()
 	return <HEADER>
@@ -308,7 +356,11 @@ const HEADER = styled.div`
 	font-family: "Titillium Web", sans-serif;
     /* outline: black; */
 }
+<<<<<<< HEAD
 /* padding-bottom: 50px; */
+=======
+padding-bottom: ${window.location.pathname === "/" ? "0" : "600px"};;
+>>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
  /* background-color: #5c6bc0; */
  /* background-color: #283593;  button */
 
@@ -321,7 +373,11 @@ header {
 	padding: 0 2rem;
 	/* background-color;
 	 */
+<<<<<<< HEAD
 	background: none;
+=======
+	background: ${window.location.pathname === "/" ? "none" : "white"};
+>>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
 	color: black;
 	font-size: larger;
 	position:absolute;

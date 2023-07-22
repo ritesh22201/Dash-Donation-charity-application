@@ -32,6 +32,7 @@ const LoginPage = () => {
         //      alert(err)
         // })
         dispatch(login(userData))
+        window.location.reload(true);
       }
 
    useEffect(()=>{
