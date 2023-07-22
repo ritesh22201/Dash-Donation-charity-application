@@ -14,15 +14,25 @@ import {
 } from '@chakra-ui/react';
 import { getAllusers, getOrganizations } from '../redux/AdminReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
+import Error from './Error';
+import Loader from './Loader';
 
 const AdminOrganization = () => {
   const dispatch = useDispatch();
-  const { orgs } = useSelector(store => store.adminReducer);
+  const { orgs , isError,isLoading } = useSelector(store => store.adminReducer);
 
   useEffect(() => {
     dispatch(getOrganizations());
   }, []);
 
+  
+  if(isError){
+    return <Error/>
+  }
+
+  if(isLoading){
+    return <Loader/>
+  }
   // console.log(allusers)
   return (
     // <div style={{textAlign:"center"}}>AdminOrganization</div>

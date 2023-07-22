@@ -48,19 +48,20 @@ import axios from 'axios';
 import { baseUrl } from '../url';
 import { useDispatch, useSelector } from 'react-redux';
 import { searchDonors } from '../redux/AdminReducer/action';
+import { Route, Routes } from 'react-router-dom';
 
 interface LinkItemProps {
   name: string;
   icon: IconType;
 }
 const LinkItems: Array<LinkItemProps> = [
-  { name: 'Dashboard', icon: FiHome, href: '/dashboard' },
+  { name: 'Dashboard', icon: FiHome, href: '/admin' },
   { name: 'Users', icon: FiUser, href: '/adusers' },
-  { name: 'Admins', icon: FiUser, href: '/adminusers' },
+  { name: 'Admins', icon: FiUser, href: '/admins' },
   { name: 'Organizations', icon: VscOrganization, href: '/org' },
   { name: 'Fundrasing', icon: FiTrendingUp, href: '/funds' },
   { name: 'Events', icon: FiCalendar, href: '/events' },
-  { name: 'Campaigns', icon: FiCompass, href: 'campaigns' },
+  { name: 'Campaigns', icon: FiCompass, href: '/campaigns' },
 ];
 
 export default function AdminSideBar({ children }: { children: ReactNode }) {
@@ -126,6 +127,7 @@ const SidebarContent = ({ onClose, ...rest }: SidebarProps) => {
             onClick={onClose}
           />
         </Flex>
+
         {LinkItems.map(link => (
           <NavItem key={link.name} href={link.href} icon={link.icon}>
             {link.name}
@@ -186,14 +188,14 @@ interface MobileProps extends FlexProps {
 }
 const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
   const [status, setStatus] = useState(false);
+
+  const dispatch = useDispatch();
+  const { searchusers, qval } = useSelector(store => store.adminReducer);
   
-  const dispatch = useDispatch()
-  const {searchusers,qval} = useSelector(store => store.adminReducer)
-  console.log(searchusers)
 
 
   const handleSearch = val => {
-    dispatch(searchDonors(val))
+    dispatch(searchDonors(val));
   };
 
   const handleDebounce = val => {
@@ -242,13 +244,23 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           aria-label="open menu"
           icon={<FiSearch />}
         /> */}
-          {status ? <Input  type="text"  onChange={(e)=>handleDebounce(e.target.value)} placeholder="Search Here..." /> : ''}
           {status ? (
-            <CloseButton onClick={() => {
-              setStatus(false)
-            }} />
+            <Input
+              type="text"
+              onChange={e => handleDebounce(e.target.value)}
+              placeholder="Search Here..."
+            />
           ) : (
-            <FiSearch cursor={"pointer"} onClick={() => setStatus(true)} />
+            ''
+          )}
+          {status ? (
+            <CloseButton
+              onClick={() => {
+                setStatus(false);
+              }}
+            />
+          ) : (
+            <FiSearch cursor={'pointer'} onClick={() => setStatus(true)} />
           )}
 
           <IconButton
@@ -278,7 +290,7 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
                     spacing="1px"
                     ml="2"
                   >
-                    <Text fontSize="sm">Justina Clark</Text>
+                    <Text fontSize="sm">{"Admin"}</Text>
                     <Text fontSize="xs" color="gray.600">
                       Admin
                     </Text>
@@ -302,19 +314,24 @@ const MobileNav = ({ onOpen, ...rest }: MobileProps) => {
           </Flex>
         </HStack>
       </Flex>
-      {window.location.pathname == '/dashboard'  ? (
-        <AdminPage />
-      )  : window.location.pathname === '/adusers' ? (
+      
+      {
+       window.location.pathname === "/admin" ? (
+         <AdminPage/>
+       ):
+       window.location.pathname === '/adusers' ? (
         <AdminUsers />
       ) : window.location.pathname === '/org' ? (
         <AdminOrganization />
-      ) : window.location.pathname === '/adminusers' ? (
+      ) : window.location.pathname === '/admins' ? (
         <Admins />
       ) : window.location.pathname === '/funds' ? (
         <Fundraise />
       ) : (
-        ''
-      )}
+          <AdminSideBar/>
+      )
+      }
+     
     </>
   );
 };

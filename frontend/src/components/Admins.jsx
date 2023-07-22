@@ -15,16 +15,26 @@ import {
 // import {DeleteIcon} from ' @chakra-ui/icons'
 import { getAdmins } from '../redux/AdminReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
+import Error from './Error';
+import Loader from './Loader';
 
 const Admins = () => {
   const dispatch = useDispatch();
-  const { admins } = useSelector(store => store.adminReducer);
+  const { admins,isError,isLoading } = useSelector(store => store.adminReducer);
 
   useEffect(() => {
     dispatch(getAdmins());
   }, []);
 
-  console.log(admins);
+  // console.log(admins);
+
+  if(isError){
+    return <Error/>
+  }
+
+  if(isLoading){
+    return <Loader/>
+  }
 
   return (
     <Box

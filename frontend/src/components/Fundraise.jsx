@@ -5,10 +5,12 @@ import { getdonations } from '../redux/AdminReducer/action';
 import donatenow from '../Assets/admins/donationsnow.avif';
 import fundDonate from '../Assets/admins/fundDonate.avif';
 import savefund from '../Assets/admins/savefund.avif';
+import Error from './Error';
+import Loader from './Loader';
 
 const Fundraise = () => {
     const dispatch = useDispatch();
-    const { users } = useSelector(store => store.adminReducer);
+    const { users ,isError,isLoading} = useSelector(store => store.adminReducer);
     console.log(users)
     const [studyDonation,setStudyDonation] = useState(0)
     const [healthdonation,setHealthdonation] = useState(0)
@@ -41,6 +43,16 @@ const Fundraise = () => {
         setFooddonation(totalfoodDonation)
         setUkrainedonation(totalukraineDonation)
     }, [users]);
+
+
+
+    if(isError){
+      return <Error/>
+    }
+  
+    if(isLoading){
+      return <Loader/>
+    }
   
 
     
