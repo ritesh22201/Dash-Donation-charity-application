@@ -7,7 +7,7 @@ function Donation() {
 
   return (
     <DIV>
-        <Box className='mainContainer' bgImage={background}>
+        <Box className='mainContainer' bgImage={background} bgRepeat={"no-repeat"} bgSize={"cover"}>
             <div className='main-div'>
 
            

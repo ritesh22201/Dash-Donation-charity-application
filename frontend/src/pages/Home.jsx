@@ -20,7 +20,7 @@ function Home() {
   return (
     <DIV>
       
-        <Box  bgImage={background}  backgroundRepeat={"repeat-x"}>
+        <Box  bgImage={background}  bgSize={"cover"} backgroundRepeat={"repeat-x"}>
            <div className='heading1'>
             <h1>HELP</h1>
             <h1>UKRAINE</h1>
