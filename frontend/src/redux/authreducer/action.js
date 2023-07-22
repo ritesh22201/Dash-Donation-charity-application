@@ -28,3 +28,20 @@ export const login = (userData) => (dispatch) => {
     console.log(error.response)
    })
 }
+
+export const logout = (token) => (dispatch) => {
+   dispatch({type : AUTH_REQUEST})
+  axios.post('https://odd-lion-life-jacket.cyclic.app/users/logout', token)
+  .then(res => {
+   // localStorage.setItem("ch-token", res.data?.token)
+   // console.log(res.data.token);
+   console.log(res);
+   
+   //   dispatch({type : LOGIN_SUCCESS, payload : res.data.token})
+  })
+  .catch(error => {
+   //  dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
+   console.log(error)
+  })
+}
+

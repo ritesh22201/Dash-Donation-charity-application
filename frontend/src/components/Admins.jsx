@@ -12,20 +12,21 @@ import {
   Table,
   Button,
 } from '@chakra-ui/react';
-import { getAllusers, getOrganizations } from '../redux/AdminReducer/action';
+// import {DeleteIcon} from ' @chakra-ui/icons'
+import { getAdmins } from '../redux/AdminReducer/action';
 import { useDispatch, useSelector } from 'react-redux';
 
-const AdminOrganization = () => {
+const Admins = () => {
   const dispatch = useDispatch();
-  const { orgs } = useSelector(store => store.adminReducer);
+  const { admins } = useSelector(store => store.adminReducer);
 
   useEffect(() => {
-    dispatch(getOrganizations());
+    dispatch(getAdmins());
   }, []);
 
-  // console.log(allusers)
+  console.log(admins);
+
   return (
-    // <div style={{textAlign:"center"}}>AdminOrganization</div>
     <Box
       display="flex"
       flexDirection="column"
@@ -35,7 +36,7 @@ const AdminOrganization = () => {
       <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading as="h3" size="sm">
-            All Organizations
+            All Admins
           </Heading>
           <Heading as="h3" size="md">
             ...
@@ -48,15 +49,13 @@ const AdminOrganization = () => {
             {/* <TableCaption>Imperial to metric conversion factors</TableCaption> */}
             <Thead>
               <Tr>
-                <Th textAlign={'center'}>Organization</Th>
+                <Th textAlign={'center'}>Name</Th>
                 <Th textAlign={'center'}>Email</Th>
-                <Th textAlign={'center'}>Category</Th>
-
-                <Th textAlign={'center'}>Website</Th>
+                <Th textAlign={'center'}>Mobile Number</Th>
               </Tr>
             </Thead>
             <Tbody>
-              {orgs
+              {admins
                 .map(el => {
                   return (
                     <Tr
@@ -65,12 +64,8 @@ const AdminOrganization = () => {
                       cursor={'pointer'}
                     >
                       <Td textAlign={'center'}>{el.name}</Td>
-                      <Td textAlign={'center'}>{el.contactEmail}</Td>
-                      <Td textAlign={'center'}>{el.category}</Td>
-                      <Td textAlign={'center'}>{el.website}</Td>
-                      <Td textAlign={'center'}>
-                        <Button>Delete</Button>
-                      </Td>
+                      <Td textAlign={'center'}>{el.email}</Td>
+                      <Td textAlign={'center'}>{el.mobile}</Td>
                     </Tr>
                   );
                 })
@@ -83,4 +78,4 @@ const AdminOrganization = () => {
   );
 };
 
-export default AdminOrganization;
+export default Admins;
