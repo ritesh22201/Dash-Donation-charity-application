@@ -6,8 +6,8 @@ import AdminLogin from '../pages/Admin/AdminLogin';
 import AdminSideBar from '../components/AdminSideBar';
 import Home from '../pages/Home';
 import Donation from '../pages/Donation'
-import Home from '../pages/Home'
-import {Routes, Route} from "react-router-dom"
+// import Home from '../pages/Home'
+// import {Routes, Route} from "react-router-dom"
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 const AllRoutes = () => {
