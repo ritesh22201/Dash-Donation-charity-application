@@ -2,11 +2,10 @@ import * as actionTypes from './actionTypes';
 
 // Define initial state
  const initialState = {
-  donations: [],
+  donation: [],
   loading: false,
   error: null,
 };
-
 // Define the reducer function
 export const reducer = (state = initialState, action) => {
   switch (action.type) {
@@ -20,7 +19,7 @@ export const reducer = (state = initialState, action) => {
       return {
         ...state,
         loading: false,
-        donations: action.payload,
+        donation: action.payload,
       };
     case actionTypes.FETCH_DONATIONS_FAILURE:
       return {

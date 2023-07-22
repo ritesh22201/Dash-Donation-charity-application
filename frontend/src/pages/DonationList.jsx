@@ -7,14 +7,15 @@ import { fetchDonations } from '../redux/donationReducer/action';
 // "email":"ritesh@gmail.com",
 // "password":"Ritesh@123"
 
-const token=localStorage.getItem('ch-token');
+const token=JSON.parse(localStorage.getItem('ch-token'))||{}
+console.log(token);
 const DonationList = () => {
   const dispatch=useDispatch();
   useEffect(()=>{
-    dispatch(fetchDonations(token))
-  })
+    dispatch(fetchDonations(token.token))
+  },[token])
 
-  const donations=useSelector((store)=>store.donationReducer.donations)
+  const donations=useSelector((store)=>store.donationReducer.donation)
 
   const containerStyle = {
     padding: '20px',
@@ -64,40 +65,40 @@ const DonationList = () => {
   };
 
   const handleUpdateDonation = async (id) => {
-    try {
-      const token = ''; // Replace with your authentication token
-      const updatedData = {}; // Update this object with the new data for the donation
-      const response = await axios.put(`https://odd-lion-life-jacket.cyclic.app/api/donation/update/${id}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data.msg);
-      // Handle the successful update, such as updating the donation list with the updated data
-    } catch (error) {
-      console.error(error.response.data.msg);
-      // Handle the error, display an error message, or perform appropriate error handling
-    }
+    // try {
+    //   const token = ''; // Replace with your authentication token
+    //   const updatedData = {}; // Update this object with the new data for the donation
+    //   const response = await axios.put(`https://odd-lion-life-jacket.cyclic.app/api/donation/update/${id}`, updatedData, {
+    //     headers: {
+    //       Authorization: `Bearer ${token}`,
+    //     },
+    //   });
+    //   console.log(response.data.msg);
+    //   // Handle the successful update, such as updating the donation list with the updated data
+    // } catch (error) {
+    //   console.error(error.response.data.msg);
+    //   // Handle the error, display an error message, or perform appropriate error handling
+    // }
   };
   
   const handleDeleteDonation = async (id) => {
-    console.log('im clicked');
-    try {
-      const token = ''; // Replace with your authentication token
-      const response = await axios.delete(`https://odd-lion-life-jacket.cyclic.app/api/donation/delete/${id}`)
+    // console.log('im clicked');
+    // try {
+    //   const token = ''; // Replace with your authentication token
+    //   const response = await axios.delete(`https://odd-lion-life-jacket.cyclic.app/api/donation/delete/${id}`)
 
         
-      // Handle the successful deletion, such as updating the donation list by removing the deleted donation
-    } catch (error) {
-      console.error(error.response.data.msg);
-      // Handle the error, display an error message, or perform appropriate error handling
-    }
+    //   // Handle the successful deletion, such as updating the donation list by removing the deleted donation
+    // } catch (error) {
+    //   console.error(error.response.data.msg);
+    //   // Handle the error, display an error message, or perform appropriate error handling
+    // }
   };
   return (
     <div style={containerStyle}>
       <h1 style={headerStyle}>Donation List</h1>
       <div className="donation-list">
-        {donations.map((donation) => (
+      {donations.map((donation) => (
           <div key={donation.userId} style={donationItemStyle}>
             <div>
               <h2 style={headingStyle}>{donation.name}</h2>
@@ -106,11 +107,10 @@ const DonationList = () => {
               <p style={detailStyle}>Category: {donation.category}</p>
             </div>
             <div>
-              {/* Update button */}
               <button style={buttonStyle} onClick={() => handleUpdateDonation(donation.userId)}>
                 Update
               </button>
-              {/* Delete button */}
+               {/* Delete button */}
               <button style={buttonStyle} onClick={() => handleDeleteDonation(donation.userId)}>
                 Delete
               </button>
@@ -125,3 +125,5 @@ const DonationList = () => {
 
 
 export default DonationList;
+
+

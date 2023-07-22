@@ -1,50 +1,155 @@
-import React, { useState } from 'react'
-import background from "../Assets/background.png"
-import { Box} from '@chakra-ui/react'
-import styled from 'styled-components'
-import { useNavigate } from 'react-router-dom'
-function Donation() {
-    const [showMore, setShowMore] = useState(false)
-    const navigation=useNavigate();
+import React, { useState } from 'react';
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Select,
+  useDisclosure,
+  Box,
+} from '@chakra-ui/react';
+import styled from 'styled-components';
+import background from "../Assets/background.png";
+import { Navigate, useNavigate } from 'react-router-dom';
+
+const Donation = () => {
+    const navigation=useNavigate()
+  const [showMore, setShowMore] = useState(false);
+  const [selectedAmount, setSelectedAmount] = useState(null);
+
+  const handleAmountClick = (amount) => {
+    setSelectedAmount(amount);
+    onOpen();
+  };
+
+  // Chakra UI's useDisclosure hook
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <DIV>
-        <Box className='mainContainer' bgImage={background}>
-            <div className='main-div'>
-
-           
-
-        <div className='heading-main'>
+      <Box className='mainContainer' bgImage={background}>
+        <div className='main-div'>
+          <div className='heading-main'>
             <h1>DONET</h1>
             <h1>TODAY</h1>
-        </div>
-        <div className='donation-container'>
-            <button>5 EUR</button>
-            <button>25 EUR</button>
-            <button>50 EUR</button>
-            {
-                showMore ? (<>
-                    <button>100 EUR</button>
-                    <button>200 EUR</button>
-                    <button>500 EUR</button>
-                    <button>1000 EUR</button></>
-                ) : false
-            }
-        <div className='load-more' onClick={()=> setShowMore(!showMore)}>{
-            showMore ? " show less": " load more"
-        }</div>
-        <button onClick={()=>navigation('/donationdata')} >Your Donations</button>
-        </div>
-        <div className='heading-last'>
-            <h1>SAVE </h1>
+          </div>
+          <div className='donation-container'>
+            <button onClick={() => handleAmountClick(5)}>5 EUR</button>
+            <button onClick={() => handleAmountClick(25)}>25 EUR</button>
+            <button onClick={() => handleAmountClick(50)}>50 EUR</button>
+            {showMore && (
+              <>
+                <button onClick={() => handleAmountClick(100)}>100 EUR</button>
+                <button onClick={() => handleAmountClick(200)}>200 EUR</button>
+                <button onClick={() => handleAmountClick(500)}>500 EUR</button>
+                <button onClick={() => handleAmountClick(1000)}>1000 EUR</button>
+              </>
+            )}
+            <div className='load-more' onClick={() => setShowMore(!showMore)}>
+              {showMore ? 'show less' : 'load more'}
+            </div>
+            <button onClick={()=>navigation('/donationdata')} >Your Donation</button>
+          </div>
+          <div className='heading-last'>
+            <h1>SAVE</h1>
             <h1>THE WORLD</h1>
             <h1>TOMORROW</h1>
+          </div>
         </div>
-        </div>
-        </Box>
-            
+      </Box>
+
+      {/* Modal */}
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Create Donation</ModalHeader>
+          <ModalCloseButton />
+
+          <ModalBody pb={6}>
+            {/* Your form fields and inputs */}
+            <FormControl>
+              <FormLabel>Name:</FormLabel>
+              <Input
+                placeholder="Enter your name"
+                name="name"
+                required
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Amount:</FormLabel>
+              <Input
+                type="number"
+                placeholder="Enter the amount"
+                name="amount"
+                value={selectedAmount}
+                readOnly
+                required
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Message:</FormLabel>
+              <Input
+                placeholder="Enter your message"
+                name="message"
+                required
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Category:</FormLabel>
+              <Select
+                placeholder="Select category"
+                name="category"
+                required
+              >
+                <option value="health">Health</option>
+                <option value="education">Education</option>
+                <option value="food">Food</option>
+                <option value="ukrain donation">Ukrain Donation</option>
+              </Select>
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Country:</FormLabel>
+              <Input
+                placeholder="Enter your country"
+                name="country"
+                required
+              />
+            </FormControl>
+
+            <FormControl mt={4}>
+              <FormLabel>Date:</FormLabel>
+              <Input
+                type="date"
+                name="date"
+                required
+              />
+            </FormControl>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Save
+            </Button>
+            <Button onClick={onClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </DIV>
-  )
-}
+  );
+};
+
+
 const DIV = styled.div`
     /* padding: 60px; */
     
@@ -103,4 +208,8 @@ const DIV = styled.div`
 
 
 `
-export default Donation
+
+export default Donation;
+
+
+

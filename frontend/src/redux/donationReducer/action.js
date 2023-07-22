@@ -18,12 +18,14 @@ export const fetchDonationsFailure = (error) => ({
 // Asynchronous action to fetch donation data
 export const fetchDonations = (token) => (dispatch) => {
   dispatch(fetchDonationsRequest());
-  fetch('https://odd-lion-life-jacket.cyclic.app/donation', {
+  fetch(`https://odd-lion-life-jacket.cyclic.app/donation`, {
   headers: {
     'Authorization': `Bearer ${token}`
   }
 })
     .then((response) => response.json())
-    .then((data) => dispatch(fetchDonationsSuccess(data)))
+    .then((data) => {
+      console.log(data);
+      dispatch(fetchDonationsSuccess(data))})
     .catch((error) => dispatch(fetchDonationsFailure(error.message)));
 };
