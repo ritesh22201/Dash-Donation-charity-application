@@ -36,6 +36,7 @@ export const logout = (token) => (dispatch) => {
    // localStorage.setItem("ch-token", res.data?.token)
    // console.log(res.data.token);
    console.log(res);
+   
    //   dispatch({type : LOGIN_SUCCESS, payload : res.data.token})
   })
   .catch(error => {
