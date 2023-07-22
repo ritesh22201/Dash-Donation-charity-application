@@ -83,28 +83,17 @@ export const adminLogin = payload => dispatch => {
   axios
     .post(`${baseUrl}/admin/login`, payload)
     .then(res => {
-      // console.log(res)
-      dispatch({ type: ADMIN_LOGIN_SUCCESS, payload: res.data.token });
+      console.log(res)
+      dispatch({ type: ADMIN_LOGIN_SUCCESS, payload: res.data });
     })
     .catch(err => {
       // console.log(err.response.data.msg)
-      dispatch({ type: ADMIN_LOGIN_FAILURE, payload: err.response.data.msg });
+      dispatch({ type: ADMIN_FAILURE_ACTION });
     });
 };
 
 
-// export const getRegisterUSers = () => (dispatch) => {
-//     dispatch({type : ADMIN_REQUEST_ACTION})
-//    axios.get('https://odd-lion-life-jacket.cyclic.app/users')
-//    .then(res => {
-//    console.log(res.data)
-//       dispatch({type : ADMIN_GET_REGISTERED_USERS, payload : res.data})
-//    })
-//    .catch(error => {
-//      dispatch({type : ADMIN_FAILURE_ACTION, payload : error.response.data.msg})
- 
-//    })
-// }
+
 
 export const searchDonors = (val) => (dispatch) => {
     dispatch({ type: ADMIN_REQUEST_ACTION });

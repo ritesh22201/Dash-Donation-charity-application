@@ -26,6 +26,7 @@ const initialState = {
   token: '',
   errmsg: '',
   msg: '',
+  loggedInuser : {}
 
 };
 
@@ -75,23 +76,17 @@ export const reducer = (state = initialState, { type, payload }) => {
     }
 
     case ADMIN_LOGIN_SUCCESS: {
+      const {token,name} = payload
       return {
         ...state,
         isLoading: false,
         isError: false,
         isAuth: true,
-        token: payload,
+        token:token,
+        loggedInuser:name
       };
     }
 
-    case ADMIN_GET_REGISTERED_USERS : {
-      return {
-        ...state,
-        isLoading : false,
-        regusers : payload,
-        isError : false
-      }
-    }
 
     case ADMIN_FAILURE_ACTION: {
       return {
@@ -126,3 +121,4 @@ export const reducer = (state = initialState, { type, payload }) => {
     }
   }
 };
+
