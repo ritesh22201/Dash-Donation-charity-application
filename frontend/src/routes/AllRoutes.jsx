@@ -5,7 +5,7 @@ import { Routes, Route } from "react-router-dom"
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import PrivateRoutes from '../components/PrivateRoutes'
-import DonationList from '../pages/donation'
+import DonationList from '../pages/DonationList'
 import DonationModal from '../pages/AddDonation'
 import DonationPage from '../pages/DonationData'
 import Donation from '../pages/DonationData'

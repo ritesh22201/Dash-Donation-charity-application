@@ -19,7 +19,7 @@ import styled from 'styled-components';
 import background from "../Assets/background.png";
 import { useNavigate } from 'react-router-dom';
 
-const Donation = () => {
+const DonationData = () => {
   const navigate=useNavigate()
   const [showMore, setShowMore] = useState(false);
   const [selectedAmount, setSelectedAmount] = useState(null);
@@ -207,4 +207,4 @@ const DIV = styled.div`
 
 
 `
-export default Donation
+export default DonationData
