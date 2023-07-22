@@ -1,33 +1,21 @@
 import axios from 'axios';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchDonations } from '../redux/donationReducer/action';
+
+
+// "email":"ritesh@gmail.com",
+// "password":"Ritesh@123"
 
 const DonationList = () => {
-  const donations =  [
-    {
-      userId: 'user1_id', // Replace with an actual user ID from the 'user' collection
-      name: 'John Doe',
-      amount: 100,
-      message: 'Wishing you all the best!',
-      category: 'health',
-    },
-    {
-      userId: 'user2_id', // Replace with an actual user ID from the 'user' collection
-      name: 'Jane Smith',
-      amount: 50,
-      message: 'For a brighter future!',
-      category: 'education',
-    },
-    {
-      userId: 'user3_id', // Replace with an actual user ID from the 'user' collection
-      name: 'Anonymous',
-      amount: 20,
-      message: 'Hope this helps!',
-      category: 'food',
-    },
-    // Add more donation objects as needed
-  ];
+  const dispatch=useDispatch();
+  useEffect(()=>{
+    dispatch(fetchDonations())
+  })
 
-  // Inline style object for the container
+  const donations=useSelector((store)=>store.donationReducer.donations)
+console.log(localStorage.getItem('ch-token'));
+
   const containerStyle = {
     padding: '20px',
     backgroundColor: '#f5f5f5',

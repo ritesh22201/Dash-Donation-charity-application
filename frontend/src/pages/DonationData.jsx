@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   FormControl,
@@ -13,72 +13,60 @@ import {
   ModalFooter,
   Select,
   useDisclosure,
+  Box,
 } from '@chakra-ui/react';
-import { Navigate } from 'react-router-dom';
+import styled from 'styled-components';
+import background from "../Assets/background.png";
+import { useNavigate } from 'react-router-dom';
 
-const MoneyBox = () => {
-  const [formData, setFormData] = useState({
-    name: '',
-    amount: '',
-    message: '',
-    category: '',
-    country: '',
-    date: '',
-  });
+const Donation = () => {
+  const navigate=useNavigate()
+  const [showMore, setShowMore] = useState(false);
+  const [selectedAmount, setSelectedAmount] = useState(null);
 
-  const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-  };
-
-  const handleSubmit = () => {
-    // Your submission logic here
-    console.log(formData);
-    onClose();
+  const handleAmountClick = (amount) => {
+    setSelectedAmount(amount);
+    onOpen();
   };
 
   // Chakra UI's useDisclosure hook
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  // Ref for initial focus in the modal
-  const initialRef = useRef();
-
-  // Ref for final focus in the modal
-  const finalRef = useRef();
-
-  const amounts = [10, 20, 50, 100, 200]; // List of different amounts
-
   return (
-    <div>
-      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        {amounts.map((amount) => (
-          <div
-            key={amount}
-            style={{
-              width: '120px',
-              height: '50px',
-              margin: '5px',
-              border: '1px solid #ccc',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              cursor: 'pointer',
-              background: 'white', // Update this to change the background color for selected amounts
-              color: 'black', // Update this to change the text color for selected amounts
-              fontWeight: 'bold',
-              borderRadius: '4px',
-            }}
-            onClick={() => {
-              setFormData({ ...formData, amount: amount });
-              onOpen();
-            }}
-          >
-            ${amount}
+    <DIV>
+      <Box className='mainContainer' bgImage={background}>
+        <div className='main-div'>
+          <div className='heading-main'>
+            <h1>DONET</h1>
+            <h1>TODAY</h1>
           </div>
-        ))}
-      </div>
+          <div className='donation-container'>
+            <button onClick={() => handleAmountClick(5)}>5 EUR</button>
+            <button onClick={() => handleAmountClick(25)}>25 EUR</button>
+            <button onClick={() => handleAmountClick(50)}>50 EUR</button>
+            {showMore && (
+              <>
+                <button onClick={() => handleAmountClick(100)}>100 EUR</button>
+                <button onClick={() => handleAmountClick(200)}>200 EUR</button>
+                <button onClick={() => handleAmountClick(500)}>500 EUR</button>
+                <button onClick={() => handleAmountClick(1000)}>1000 EUR</button>
+              </>
+            )}
+            <div className='load-more' onClick={() => setShowMore(!showMore)}>
+              {showMore ? 'show less' : 'load more'}
+            </div>
+            <button onClick={()=>navigate('/donationdata')} >Your Donations</button>
+          </div>
+          <div className='heading-last'>
+            <h1>SAVE</h1>
+            <h1>THE WORLD</h1>
+            <h1>TOMORROW</h1>
+          </div>
+        </div>
+      </Box>
 
       {/* Modal */}
-      <Modal isOpen={isOpen} onClose={onClose} initialFocusRef={initialRef} finalFocusRef={finalRef}>
+      <Modal isOpen={isOpen} onClose={onClose}>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader>Create Donation</ModalHeader>
@@ -89,11 +77,8 @@ const MoneyBox = () => {
             <FormControl>
               <FormLabel>Name:</FormLabel>
               <Input
-                ref={initialRef}
                 placeholder="Enter your name"
                 name="name"
-                value={formData.name}
-                onChange={handleChange}
                 required
               />
             </FormControl>
@@ -104,8 +89,8 @@ const MoneyBox = () => {
                 type="number"
                 placeholder="Enter the amount"
                 name="amount"
-                value={formData.amount}
-                onChange={handleChange}
+                value={selectedAmount}
+                readOnly
                 required
               />
             </FormControl>
@@ -115,8 +100,6 @@ const MoneyBox = () => {
               <Input
                 placeholder="Enter your message"
                 name="message"
-                value={formData.message}
-                onChange={handleChange}
                 required
               />
             </FormControl>
@@ -126,8 +109,6 @@ const MoneyBox = () => {
               <Select
                 placeholder="Select category"
                 name="category"
-                value={formData.category}
-                onChange={handleChange}
                 required
               >
                 <option value="health">Health</option>
@@ -142,8 +123,6 @@ const MoneyBox = () => {
               <Input
                 placeholder="Enter your country"
                 name="country"
-                value={formData.country}
-                onChange={handleChange}
                 required
               />
             </FormControl>
@@ -153,24 +132,79 @@ const MoneyBox = () => {
               <Input
                 type="date"
                 name="date"
-                value={formData.date}
-                onChange={handleChange}
                 required
               />
             </FormControl>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={handleSubmit}>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
               Save
             </Button>
             <Button onClick={onClose}>Cancel</Button>
           </ModalFooter>
         </ModalContent>
       </Modal>
-      <button >Click to see your data</button>
-    </div>
+    </DIV>
   );
 };
 
-export default MoneyBox;
+const DIV = styled.div`
+    /* padding: 60px; */
+    
+    .mainContainer{
+        padding: 60px;
+        /* height: 100vh; */
+    }
+    .main-div{
+        width: 60%;
+        margin: auto;
+    }
+    .donation-container{
+        padding: 50px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        color: white;
+        background-color: white;
+        opacity: 0.8;
+        transform: 0.5s;
+        transition: 0.5s;
+        /* width: 60%; */
+        
+        margin: auto;
+        border-radius: 20px;
+        box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    }
+    .donation-container  button{
+        background-color:#3480ef;
+        opacity: 1;
+        font-size: x-large;
+        font-weight: 600;
+        border-radius: 20px;
+    }
+    .heading-main{
+        font-size: 60px;
+        
+        width: fit-content;
+        color: #d9d9d9;
+        font-weight: 600;
+    }
+    .heading-last{
+        color: #0057b8;
+        font-size: 60px;
+        width: fit-content;
+        text-align: end;
+        width: 100%;
+        font-weight: 700;
+    }
+    .load-more{
+        /* background-color: white; */
+        color: blue;
+        text-align: center;
+        font-size: x-large;
+    }
+
+
+`
+export default Donation

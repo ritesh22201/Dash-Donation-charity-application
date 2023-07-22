@@ -3,8 +3,7 @@ import thunk from 'redux-thunk'
 
 import {reducer as adminReducer} from './AdminReducer/reducer'
 import { reducer as authReducer } from './authreducer/reducer';
-import donationReducer from './donation/reducer'; // Replace with the correct path to your donationReducer file
-
+import {reducer as donationReducer} from './donationReducer/reducer'
 const rootReducer = combineReducers({
 authReducer,adminReducer,donationReducer
 

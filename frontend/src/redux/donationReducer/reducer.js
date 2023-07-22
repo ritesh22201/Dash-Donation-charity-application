@@ -1,14 +1,14 @@
 import * as actionTypes from './actionTypes';
 
 // Define initial state
-const initialState = {
+ const initialState = {
   donations: [],
   loading: false,
   error: null,
 };
 
 // Define the reducer function
-const donationReducer = (state = initialState, action) => {
+export const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.FETCH_DONATIONS_REQUEST:
       return {
@@ -33,4 +33,3 @@ const donationReducer = (state = initialState, action) => {
   }
 };
 
-export default donationReducer;

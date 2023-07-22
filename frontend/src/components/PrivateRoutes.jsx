@@ -1,12 +1,11 @@
-import React from 'react'
-import { useSelector } from 'react-redux'
-import { Navigate } from 'react-router-dom'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Navigate } from 'react-router-dom';
 
-const PrivateRoutes = ({children}) => {
-  const islogged=useSelector((store)=>{
-    return store.authReducer.auth
-  })
-  return islogged?children:null;
+const PrivateRoutes = ({ children }) => {
+  const isLogged = localStorage.getItem("ch-token") || '';
+
+  return isLogged ? children : <Navigate to="/login" />; // If user is logged in, render the protected route (children), else navigate to the login page.
 }
 
-export default PrivateRoutes
+export default PrivateRoutes;

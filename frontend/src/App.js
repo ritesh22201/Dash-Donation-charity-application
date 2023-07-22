@@ -17,13 +17,13 @@ function App() {
   return (
   <>
   {/* {/* <AdminSideBar/> */}
-  {/* <AllRoutes/> */}
+  <AllRoutes/>
   {/* <SignupPage/> */}
   {/* <LoginPage/> */}
-  <OrgCards/> */}
-  <DonationList/>
+  {/* <OrgCards/>  */}
+  {/* <DonationList/> */}
   {/* <DonationModal/> */}
-  <MoneyBox/>
+  {/* <MoneyBox/> */}
   </>
 
   );
