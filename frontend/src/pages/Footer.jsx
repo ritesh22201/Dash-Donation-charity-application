@@ -22,7 +22,7 @@ function Footer() {
       <div className='last-footer'>
         <p>DESIGNED BY DENIELS BERZINSH 2022</p>
           <div>
-        <div style={{display:"flex" , gap:"10px"}}>
+        <div className='download-sec'>
           
           <img src="https://www.charityhero.live/static/media/AppStoreW.632c2c31011817d3a77f5d56ad40ab94.svg" alt="" />
           <img src="https://www.charityhero.live/static/media/GoogleStoreW.5fd1156c8537025f122dc605d0f0e481.svg" alt="" />
@@ -66,8 +66,31 @@ padding: 50px 50px 20px 50px;
 
 
 }
+.download-sec{
+  display: flex;
+  gap: 10px;
+  /* style={{display:"flex" , gap:"10px"}} */
+}
+@media only screen and (max-width: 1024px) {
 
-
-
+.firstSection>div {
+    display: flex;
+    font-size: medium;
+    gap: 10px;
+    font-weight: 400;
+}
+.mainLogo{
+  margin-right: 10px;
+  height: 40px;
+}
+.footer-text{
+  font-size: 25px;
+  font-weight: 600;
+  margin: 50px 0;
+}
+.download-sec > img{
+  height: 40px;
+}
+}
 `
 export default Footer

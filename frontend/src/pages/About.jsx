@@ -4,6 +4,8 @@ import flag from "../Assets/flag.jpg"
 function About() {
   return (
     <DIV>
+
+       
         <h1 className='headingAbout'>WHY CHARITY HERO?</h1>
        
         <div className='aboutSec'>
@@ -90,13 +92,13 @@ function About() {
             </div>
         </div>
        </div>
+       
     </DIV>
   )
 }
 const DIV= styled.div`
 
-     /* box-sizing: border-box; */
-    /* outline: 1px solid limegreen !important; */
+
 .worksHeadin{
     font-size: 30px;
     font-weight: 800;
@@ -171,10 +173,25 @@ padding: 50px;
 }
 
 @media only screen and (max-width: 1024px) {
-
+    padding: 20px;
+.aboutOpt > img{
+    height: 50px;
+    margin-top: 20px;
+}
 .flagImg{
     visibility: hidden;
+    width: 0;
+    height: 0;
 }
+.aboutOpt > div{
+    margin: 10px;
+    font-size: large;
+}
+.aboutOpt h1{
+    font-size: larger;
+    font-weight: 600;
+}
+
 
 }
 
