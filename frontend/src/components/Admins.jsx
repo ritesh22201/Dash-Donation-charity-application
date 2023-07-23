@@ -18,6 +18,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import Error from './Error';
 import Loader from './Loader';
 
+
 const Admins = () => {
   const dispatch = useDispatch();
   const { admins,isError,isLoading } = useSelector(store => store.adminReducer);
@@ -28,22 +29,24 @@ const Admins = () => {
 
   // console.log(admins);
 
-  if(isError){
-    return <Error/>
-  }
+  // if(isError){
+  //   return <Error/>
+  // }
 
-  if(isLoading){
-    return <Loader/>
-  }
+  // if(isLoading){
+  //   return <Loader/>
+  // }
 
   return (
-    <Box
+    <>
+ 
+    {/* <Box
       display="flex"
       flexDirection="column"
       alignItems="flex-end"
       p="20px 60px 20px 20px"
-    >
-      <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
+    > */}
+      <Box w="95%" borderRadius="10px" m="40px auto" p="20px" bg="white">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading as="h3" size="sm">
             All Admins
@@ -69,9 +72,9 @@ const Admins = () => {
                 .map(el => {
                   return (
                     <Tr
-                      key={el.id}
-                      _hover={{ bg: 'gray.200' }}
-                      cursor={'pointer'}
+                    key={el.id}
+                    _hover={{ bg: 'gray.200' }}
+                    cursor={'pointer'}
                     >
                       <Td textAlign={'center'}>{el.name}</Td>
                       <Td textAlign={'center'}>{el.email}</Td>
@@ -84,7 +87,8 @@ const Admins = () => {
           </Table>
         </TableContainer>
       </Box>
-    </Box>
+    {/* </Box> */}
+                      </>
   );
 };
 
