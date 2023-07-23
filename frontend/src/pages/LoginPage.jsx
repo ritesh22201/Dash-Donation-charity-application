@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link, useNavigate } from "react-router-dom";
 import '../styles/login.css'
+import bgImage from "../Assets/background.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../redux/authreducer/action';
 import { Toast, useToast } from '@chakra-ui/react';
@@ -49,11 +50,10 @@ const LoginPage = () => {
 
   return (
     <div>
-      <div className='background'>
-        {/* <img width={"100%"} src="https://plus.unsplash.com/premium_photo-1661963873162-5028faa8ce36?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8OTF8fGRvbmF0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="" /> */}
-      </div>
-
-      <div className='signup-page'>
+     <div className='background'>
+        {/* <img width={"100%"} src={bgImage} alt="" /> */}
+        </div>
+      <div className='signup-page' >
         <div className='signup-detail'>
           <h1>Give Your life to charity<br /> <span>Dash <span>Donation</span></span></h1>
           <img width={"100%"} src="https://media.istockphoto.com/id/1353332258/photo/donation-concept-the-volunteer-giving-a-donate-box-to-the-recipient-standing-against-the-wall.webp?b=1&s=170667a&w=0&k=20&c=D53dy4HPlfLi9yCO8ouowIn9HqIWfkjEx4-C05B8TYU=" alt="" />
@@ -73,6 +73,7 @@ const LoginPage = () => {
 
         </form>
       </div>
+   
     </div>
   )
 }

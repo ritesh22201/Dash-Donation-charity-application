@@ -1,25 +1,25 @@
-.cont{
-    top: 50px;
-  }
+
+
+
   .background>img{
       width: 100%;
       height: 100%;
-      position: relative;
+      /* position: relative; */
       border-radius: 20px;
-      top:50px
+      /* top:50px */
   }
   .signup{
-      border: 1px solid black;
+      /* border: 1px solid black; */
       width: 40%;
       background-color: whitesmoke;
-      background: rgba(145, 98, 36, 0.4);
+      background: rgba(70, 180, 249, 0.4);
       border-radius: 10px;
       height: 480px;
       margin-top: 30px;
       box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
    }
   .signup-detail{
-      border: 1px solid black;
+      /* border: 1px solid black; */
       width: 48%;
       border-radius: 40px 10px 10px 10px;
   }
@@ -27,13 +27,13 @@
       position: absolute;
       display: flex;
       padding: 20px;
-      border: 1px solid black;
-      width: 90%;
-      top: 11%;
-      left:3%;
+      /* border: 1px solid black; */
+      width: 100%;
+      top: 10%;
+      /* left:3%; */
       justify-content: space-evenly;
       background-color : blue ;
-      background: rgba(147, 178, 191, 0.3);
+      background: rgba(66, 188, 240, 0.3);
       border-radius : 90px 10px 100px 10px;
       height: 590px;
       box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
@@ -59,7 +59,8 @@
   
   .signup>button{
   border-radius: 20px;
-  background-color: #e4d98b;
+  background-color: #142ea1;
+  color: white;
   padding: 10px 20px;
   width: 80%;
   margin-top: 20px;
@@ -67,8 +68,8 @@
   margin-bottom: 30px;
   }
   .signup>button:hover{
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px;
-  background-color: #f2c76a;
+  box-shadow: rgba(255, 255, 255, 0.1) 0px 4px 12px;
+  background-color: #3d77eb;
   color: #fefefe;
   }
   .signup>label{
@@ -76,7 +77,7 @@
   padding-left: 10%;
   }
   .signup>h1{
-  color: rgb(240, 97, 58);
+  color: rgb(43, 18, 190);
   font-size: 30px;
   padding-left: 20px;
   }
@@ -94,19 +95,19 @@
   }
   
   .signup-detail{
-  background: rgba(145, 98, 36,0.4);
+  background: rgba(79, 190, 242, 0.4);
   padding: 10px;
   border: 0px solid red;
   box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
    
   }
   .signup-detail>h1{
-  color: rgb(54, 39, 39);
+    color: rgb(43, 18, 190);
   font-size: 30px;
   padding-left: 20px;
   }
   .signup-detail>h1>span{
-  color:  rgb(240, 97, 58);
+    color: rgb(43, 18, 190);
   }
   .signup-detail>h1>span>span{
   color: rgb(255, 255, 255);
@@ -152,7 +153,7 @@
           .signup-page{
               height: 500px;
               padding: 2px;
-              background: rgba(147, 178, 191, 0.2);
+              background: rgba(100, 196, 238, 0.2);
               border: 0px ;
           }
           .signup{

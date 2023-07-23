@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 // import "../styles/signup.css"
+import bgImage from "../Assets/background.png"
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, Link } from 'react-router-dom';
 import { signup } from '../redux/authreducer/action';
@@ -45,7 +46,7 @@ const SignupPage = () => {
   return (
     <div className='cont'>
       <div className='background'>
-        {/* <img width={"100%"} src="https://images.unsplash.com/photo-1536856136534-bb679c52a9aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nzd8fGRvbmF0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=600&q=60" alt="" /> */}
+        {/* <img width={"100%"} src={bgImage} alt="" /> */}
       </div>
 
       <div className='signup-page'>
@@ -53,9 +54,9 @@ const SignupPage = () => {
         <div className='signup-detail'>
           <h1>Give your hand to make a change <br /> <span>DASH<span> DONATION</span></span></h1>
           <img width={"100%"} src="https://images.unsplash.com/photo-1532629345422-7515f3d16bb6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZG9uYXRpb258ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=870&q=80" alt="" />
-          <h3>
+          {/* <h3>
             Create your account today and raise fund <br />and bring the change in others life<br /> with the DashDonation support !
-          </h3>
+          </h3> */}
         </div>
         <form className='signup' onSubmit={handleSignup}>
           {/* <h4>Charity<span>Hero</span>  <span> SignUp</span></h4> */}
