@@ -40,7 +40,7 @@ function Home() {
 
        <Help/>
        <Partners/>
-       <Contact/>
+       <Contact />
        <Footer/>
         </Box>
     </DIV>
@@ -89,6 +89,7 @@ const DIV = styled.div`
   }
   .donateBtn{
     margin: 20px;
+    font-size: medium;
   }
 
 

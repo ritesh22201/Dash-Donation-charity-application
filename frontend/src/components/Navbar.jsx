@@ -244,6 +244,7 @@ nav{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		z-index: 100;
 		justify-content: center;
 		gap: 1.5rem;
 		background-color: black;
