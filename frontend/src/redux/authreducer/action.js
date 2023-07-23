@@ -42,4 +42,3 @@ export const logout = (token) => (dispatch) => {
    console.log(error)
   })
 }
-

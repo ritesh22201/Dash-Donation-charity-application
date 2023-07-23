@@ -9,6 +9,7 @@ import {
   ADMIN_LOGIN_FAILURE,
   ADMIN_LOGIN_SUCCESS,
   ADMIN_REQUEST_ACTION,
+  BLOCK_USER,
   SEARCH_VAL,
 } from './actionTypes';
 
@@ -20,6 +21,7 @@ const initialState = {
   admins: [],
   regusers:[],
   searchusers : [],
+  blockeduser : [],
   isError: false,
   isAuth: false,
   qval:false,
@@ -76,14 +78,14 @@ export const reducer = (state = initialState, { type, payload }) => {
     }
 
     case ADMIN_LOGIN_SUCCESS: {
-      const {token,name} = payload
+      // const {token,name} = payload
       return {
         ...state,
         isLoading: false,
         isError: false,
         isAuth: true,
-        token:token,
-        loggedInuser:name
+        token:payload.token,
+        loggedInuser:payload.name
       };
     }
 
@@ -94,6 +96,7 @@ export const reducer = (state = initialState, { type, payload }) => {
         isLoading: false,
         isError: true,
         isAuth: false,
+        errmsg:payload
       };
     }
     case ADMIN_LOGIN_FAILURE: {
@@ -113,6 +116,14 @@ export const reducer = (state = initialState, { type, payload }) => {
         isError: true,
         searchusers : payload,
         qval:true
+      }
+    }
+    case BLOCK_USER : {
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        blockeduser : payload
       }
     }
    

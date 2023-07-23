@@ -2,11 +2,11 @@ import { Box, Flex,Text,Heading,Image } from '@chakra-ui/react'
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { getdonations } from '../redux/AdminReducer/action';
-import donatenow from '../Assets/admins/donationsnow.avif';
-import fundDonate from '../Assets/admins/fundDonate.avif';
+
 import savefund from '../Assets/admins/savefund.avif';
 import Error from './Error';
 import Loader from './Loader';
+
 
 const Fundraise = () => {
     const dispatch = useDispatch();
@@ -57,6 +57,8 @@ const Fundraise = () => {
 
     
   return (
+    <>
+  
     <Box
       display="flex"
       flexDirection="column"
@@ -69,11 +71,11 @@ const Fundraise = () => {
         
         backgroundSize: "cover",
       }}
-    >
+      >
 
        
+    <Box w="100%">
 
-    <Box w="80%">
           <Flex cursor={"pointer"} w="100%" justifyContent="space-around">
             <Box w="32%" p="30px" bg="rgb(255,210,73)" borderRadius="10px">
               <Flex justifyContent="space-between">
@@ -130,8 +132,9 @@ const Fundraise = () => {
                 </Heading>                
               </Flex>
             </Box> 
-        </Box>
+                </Box>
     </Box>
+    </>
   )
 }
 
