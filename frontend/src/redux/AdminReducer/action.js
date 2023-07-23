@@ -10,8 +10,11 @@ import {
   ADMIN_GET_SUCCESS,
   ADMIN_LOGIN_FAILURE,
   ADMIN_LOGIN_SUCCESS,
+  ADMIN_LOGOUT_SUCCESS,
   ADMIN_REQUEST_ACTION,
+  BLOCK_USER,
   SEARCH_VAL,
+  UNBLOCK_USER,
 } from './actionTypes';
 
 export const getdonations = () => dispatch => {
@@ -88,10 +91,21 @@ export const adminLogin = payload => dispatch => {
     })
     .catch(err => {
       // console.log(err.response.data.msg)
-      dispatch({ type: ADMIN_FAILURE_ACTION });
+      dispatch({ type: ADMIN_FAILURE_ACTION , payload: err.response.data.msg });
     });
 };
 
+
+export const adminLogout = () => dispatch => {
+  dispatch({ type: ADMIN_REQUEST_ACTION });
+  axios.get(`${baseUrl}/admin/logout`).then((res)=>{
+    console.log(res)
+    // dispatch({ type: ADMIN_LOGOUT_SUCCESS });
+  }).catch(err=> {
+    console.log(err)
+    dispatch({ type: ADMIN_FAILURE_ACTION });
+  })
+}
 
 
 
@@ -100,11 +114,41 @@ export const searchDonors = (val) => (dispatch) => {
       axios
         .get(`${baseUrl}/admin/userDetails?q=${val}`)
         .then(res => {
-        //   console.log(res);
+          console.log(res);
           // setData(res.data);
           dispatch({type:SEARCH_VAL , payload : res.data})
         })
         .catch(err => {
             dispatch({type: ADMIN_LOGIN_FAILURE});
         });
+}
+
+
+
+export const blockUser = (payload) => (dispatch) => {
+  dispatch({ type: ADMIN_REQUEST_ACTION });
+    axios
+      .post(`${baseUrl}/admin/userDetails/blockuser`,payload)
+      .then(res => {
+        console.log(res);
+        dispatch({type:BLOCK_USER,payload:res.data.blockuser.email})
+      })
+      .catch(err => {
+          dispatch({type:ADMIN_FAILURE_ACTION });
+      });
+}
+
+
+
+export const unBlockUser = (email) => (dispatch) => {
+  dispatch({ type: ADMIN_REQUEST_ACTION });
+    axios
+      .get(`${baseUrl}/admin/userDetails/getblockuser`,email)
+      .then(res => {
+        console.log(res);
+        dispatch({type:UNBLOCK_USER,payload:res})
+      })
+      .catch(err => {
+          dispatch({type:ADMIN_FAILURE_ACTION });
+      });
 }

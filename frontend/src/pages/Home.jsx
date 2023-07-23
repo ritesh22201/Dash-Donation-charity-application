@@ -1,6 +1,8 @@
 import React from 'react'
 import styled from "styled-components"
 import  background  from '../Assets/background.png';
+import { Navigate, useNavigate } from 'react-router-dom';
+
 import { Box } from '@chakra-ui/react';
 import Help from "./Help"
 import About from "./About"
@@ -8,6 +10,13 @@ import Partners from "./Partners"
 import Contact from "./Contact"
 import Footer from "./Footer"
 function Home() {
+  const navigate=useNavigate()
+  const handleDonateClick = () => {
+    // Perform any necessary actions before navigating (if needed)
+
+    // Navigate to the "/donation" route
+    navigate('/donation');
+  };
   return (
     <DIV>
       
@@ -17,18 +26,16 @@ function Home() {
             <h1>UKRAINE</h1>
             <h1>WITHSTAND</h1>
            </div>
-           <div className='donateBtn'>DONATE</div>
+           <div className='donateBtn' >
+            <button onClick={handleDonateClick}>DONATE</button>
+            </div>
            <div>
             <div className='applink'>
               <img src="https://www.charityhero.live/static/media/BAppStor.644ce6de09f0144c5967424bd9b6f27c.svg" alt="" />
               <img src="https://www.charityhero.live/static/media/BGStor.db895fe2f79e4f4272fb1a3bcb554c67.svg" alt="" />
             </div>
            </div>
-<<<<<<< HEAD
            <About/>
-=======
-            <About/>
->>>>>>> 89c6fc9d577e1a38e58b2da0c3e0ac5b45e9995a
        <Help/>
        <Partners/>
        <Contact/>

@@ -3,9 +3,9 @@ import thunk from 'redux-thunk'
 
 import {reducer as adminReducer} from './AdminReducer/reducer'
 import { reducer as authReducer } from './authreducer/reducer';
-
+import {reducer as donationReducer} from './donationReducer/reducer'
 const rootReducer = combineReducers({
-authReducer,adminReducer
+authReducer,adminReducer,donationReducer
 
 })
 
