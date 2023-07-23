@@ -20,7 +20,7 @@ function Home() {
   return (
     <DIV>
       
-        <Box  bgImage={background}  backgroundRepeat={"repeat-x"}>
+        <Box  bgImage={background}  bgSize={"cover"} backgroundRepeat={"repeat-x"}>
            <div className='heading1'>
             <h1>HELP</h1>
             <h1>UKRAINE</h1>
@@ -35,7 +35,9 @@ function Home() {
               <img src="https://www.charityhero.live/static/media/BGStor.db895fe2f79e4f4272fb1a3bcb554c67.svg" alt="" />
             </div>
            </div>
+           
            <About/>
+
        <Help/>
        <Partners/>
        <Contact/>

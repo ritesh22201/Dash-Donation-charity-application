@@ -18,14 +18,13 @@ export const login = (userData) => (dispatch) => {
     dispatch({type : AUTH_REQUEST})
    axios.post('https://odd-lion-life-jacket.cyclic.app/users/login', userData)
    .then(res => {
-    localStorage.setItem("ch-token", res.data?.token)
-    console.log(res.data.token);
-    console.log(res);
-      dispatch({type : LOGIN_SUCCESS, payload : res.data.token})
+   //  localStorage.setItem("ch-token", res.data?.token)
+   //  console.log(res.data.token);
+   //  console.log(res);
+      dispatch({type : LOGIN_SUCCESS, payload : res.data})
    })
    .catch(error => {
-     dispatch({type : AUTH_FAILURE, payload : error.response})
-    console.log(error.response)
+     dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
    })
 }
 
@@ -36,7 +35,6 @@ export const logout = (token) => (dispatch) => {
    // localStorage.setItem("ch-token", res.data?.token)
    // console.log(res.data.token);
    console.log(res);
-
    //   dispatch({type : LOGIN_SUCCESS, payload : res.data.token})
   })
   .catch(error => {
@@ -44,4 +42,3 @@ export const logout = (token) => (dispatch) => {
    console.log(error)
   })
 }
-

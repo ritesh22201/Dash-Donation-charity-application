@@ -9,6 +9,7 @@ import AdminOrganization from "../components/AdminOrganization";
 import AdminPage from "../pages/Admin/AdminPage";
 import Events from "../components/Events";
 import PageNotFound from "../components/PageNotFound";
+import AdminPrivateRoute from "../components/AdminPrivateRoute";
 
 const AdminRoutes = () => {
   return (
@@ -17,49 +18,66 @@ const AdminRoutes = () => {
       <Route
         path="/dashboard"
         element={
+            <AdminPrivateRoute>
           <AdminPage>
+                
             <Dashboard />
           </AdminPage>
+            </AdminPrivateRoute>
         }
       />
       <Route
         path="/adusers"
         element={
+            <AdminPrivateRoute>
+
           <AdminPage>
             <AdminUsers />
           </AdminPage>
+            </AdminPrivateRoute>
         }
       />
       <Route
         path="/admins"
         element={
+            <AdminPrivateRoute>
+
           <AdminPage>
             <Admins />
           </AdminPage>
+            </AdminPrivateRoute>
         }
       />
       <Route
         path="/org"
         element={
+            <AdminPrivateRoute>
+
           <AdminPage>
             <AdminOrganization />
           </AdminPage>
+            </AdminPrivateRoute>
         }
       />
        <Route
         path="/funds"
         element={
+            <AdminPrivateRoute>
           <AdminPage>
             <Fundraise />
           </AdminPage>
+          </AdminPrivateRoute>
         }
       />
        <Route
         path="/events"
         element={
+             <AdminPrivateRoute>
+
           <AdminPage>
             <Events />
           </AdminPage>
+             </AdminPrivateRoute>
         }
       />
     </Routes>

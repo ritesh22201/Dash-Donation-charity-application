@@ -1,5 +1,3 @@
-
-
 import {
 	Menu,
 	MenuButton,
@@ -24,7 +22,8 @@ import { logout } from '../redux/authreducer/action';
  const Navbar = () =>{
 	
 	const [navClass, setNavClass] = useState(false)
-    console.log(window.location.pathname);
+    // console.log(window.location.pathname);
+	const user = JSON.parse(localStorage.getItem("ch-token"))
 	
 
 	const showNavbar = () => {
@@ -43,7 +42,6 @@ import { logout } from '../redux/authreducer/action';
 
 	}
 
-	
 
 	
 const navgite = useNavigate()
@@ -91,6 +89,7 @@ const navgite = useNavigate()
 							  {isOpen ? <Icon size={30} as={CgProfile} /> : <Icon as={CgProfile} size={30} />}
 							</MenuButton>
 							<MenuList style= {{display:"flex", flexDirection:"column"}}>
+							<MenuItem color={"black"} >{user.loggedInUser }</MenuItem>
 							  <MenuItem color={"black"} onClick={()=> {
 								navgite("/admin")
 							  }}>Admin</MenuItem>
@@ -128,9 +127,9 @@ const HEADER = styled.div`
 	font-family: "Titillium Web", sans-serif;
     /* outline: black; */
 }
-
-padding-bottom: ${window.location.pathname === "/" ? "0" : "600px"};;
-
+padding-bottom: ${window.location.pathname === "/" ? "0" : "60px"};
+ /* background-color: #5c6bc0; */
+ /* background-color: #283593;  button */
 
 header {
 	/* box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px; */
@@ -141,7 +140,6 @@ header {
 	padding: 0 2rem;
 	/* background-color;
 	 */
-	background: none;
 	background: ${window.location.pathname === "/" ? "none" : "white"};
 	color: black;
 	font-size: larger;
@@ -274,4 +272,3 @@ nav{
 
 
 export default Navbar
-// window.location.pathname == "/" ? none : white
