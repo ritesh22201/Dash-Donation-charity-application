@@ -51,7 +51,7 @@ const DIV = styled.div`
         /* height: 100vh; */
     }
     .main-div{
-        width: 60%;
+        width: 40%;
         margin: auto;
     }
     .donation-container{

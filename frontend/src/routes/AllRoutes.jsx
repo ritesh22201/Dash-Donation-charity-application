@@ -11,10 +11,12 @@ import PrivateRoutes from '../components/PrivateRoutes';
 import AdminPrivateRoute from '../components/AdminPrivateRoute';
 import DonationData from '../pages/DonationData';
 import PageNotFound from '../components/PageNotFound';
+import Organization from '../pages/Organization';
 const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/organization" element={<Organization />} />
       <Route path="/adminlogin" element={<AdminLogin />} />
       {/* <Route path="*" element={<PageNotFound />} /> */}
       <Route path="/users/register" element={<SignupPage />} />
