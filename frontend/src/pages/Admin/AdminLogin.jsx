@@ -19,6 +19,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { adminLogin } from '../../redux/AdminReducer/action';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import flaglady from '../../Assets/admins/flaglady.avif';
+import Navbar2 from '../../components/Navbar2';
 
 
 export default function AdminLogin() {
@@ -31,7 +32,6 @@ export default function AdminLogin() {
   const location = useLocation();
   const [route, setRoute] = useState(false);
   // const {token,name} = loggedInuser
-  console.log(loggedInuser)
 
 
   const handleSubmit = e => {
@@ -42,8 +42,6 @@ export default function AdminLogin() {
     };
     dispatch(adminLogin(userDetails));
   };
-
-  console.log(token,loggedInuser)
 
   useEffect(() => {
    
@@ -78,6 +76,7 @@ export default function AdminLogin() {
 
   return (
     <>
+    <Navbar2/>
       <Box
         position={'relative'}
         style={{

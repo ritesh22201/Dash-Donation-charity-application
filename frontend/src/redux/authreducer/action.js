@@ -1,5 +1,5 @@
 import axios from "axios"
-import { AUTH_FAILURE, AUTH_REQUEST, LOGIN_SUCCESS, REGISTER_SUCCESS } from "./actionTypes"
+import { AUTH_FAILURE, AUTH_REQUEST, LOGIN_SUCCESS, LOGOUT_SUCCESS, REGISTER_SUCCESS } from "./actionTypes"
 
 
 export const signup = (details) => (dispatch) => {
@@ -10,7 +10,6 @@ export const signup = (details) => (dispatch) => {
    })
    .catch(error => {
      dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
-    console.log(error.response.data.msg)
    })
 }
 
@@ -18,27 +17,27 @@ export const login = (userData) => (dispatch) => {
     dispatch({type : AUTH_REQUEST})
    axios.post('https://odd-lion-life-jacket.cyclic.app/users/login', userData)
    .then(res => {
-   //  localStorage.setItem("ch-token", res.data?.token)
-   //  console.log(res.data.token);
-   //  console.log(res);
-      dispatch({type : LOGIN_SUCCESS, payload : res.data})
-   })
-   .catch(error => {
+    localStorage.setItem("ch-token", JSON.stringify({...res.data}));
+
+    dispatch({type : LOGIN_SUCCESS, payload : res.data})
+  })
+  .catch(error => {
+     console.log(error);
      dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
    })
 }
 
 export const logout = (token) => (dispatch) => {
    dispatch({type : AUTH_REQUEST})
-  axios.post('https://odd-lion-life-jacket.cyclic.app/users/logout', token)
+  axios.get('https://odd-lion-life-jacket.cyclic.app/users/logout', {
+    headers : {
+      'Authorization' : `Bearer ${token}`
+    }
+  })
   .then(res => {
-   // localStorage.setItem("ch-token", res.data?.token)
-   // console.log(res.data.token);
-   console.log(res);
-   //   dispatch({type : LOGIN_SUCCESS, payload : res.data.token})
+     dispatch({type : LOGOUT_SUCCESS})
   })
   .catch(error => {
-   //  dispatch({type : AUTH_FAILURE, payload : error.response.data.msg})
-   console.log(error)
+    dispatch({type : AUTH_FAILURE});
   })
 }

@@ -3,26 +3,22 @@ import { styled } from 'styled-components'
 import background from "../Assets/background.png"
 import { Box, Button } from '@chakra-ui/react'
 import { Input } from '@chakra-ui/react'
+
 function Contact() {
-  return (
-    <DIV>
+    return (
+        <DIV>
             <h1 className='fHead'>CONTACT US</h1>
-        <Box  className='contact-form' bgImage={background} bgRepeat={"no-repeat"}>
-
-    <div className='nameEmail'>
-        {/* <input type="text" /> */}
-        {/* <input type="text" /> */}
-        <Input color={"black.300"} className='inputBox'  placeholder='Name' />
-        <Input className='inputBox'  placeholder='Email' />
-    </div>
-    <Input className='inputBox' placeholder='Subject' />
-    <Input fontSize={"30px"} color='black'  height={"400px"} className='msg' placeholder='Subject' />
-        <Button className='btnSend' >SEND</Button>
-
-        </Box>
-    </DIV>
-  
-  )
+            <Box className='contact-form' bgImage={background} bgSize={'cover'} bgRepeat={"no-repeat"}>
+                <div className='nameEmail'>
+                    <Input color={"black.300"} className='inputBox' placeholder='Name' />
+                    <Input className='inputBox' placeholder='Email' />
+                </div>
+                <Input className='inputBox' placeholder='Subject' />
+                <Input fontSize={"30px"} color='black' height={"400px"} className='msg' placeholder='Message' />
+                <Button className='btnSend'>SEND</Button>
+            </Box>
+        </DIV>
+    )
 }
 
 const DIV = styled.div`

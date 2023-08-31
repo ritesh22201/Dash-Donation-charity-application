@@ -32,7 +32,7 @@ const initialState = {
 
 };
 
-console.log(initialState.allusers)
+// console.log(initialState.allusers)
 
 export const reducer = (state = initialState, { type, payload }) => {
   switch (type) {
@@ -132,4 +132,3 @@ export const reducer = (state = initialState, { type, payload }) => {
     }
   }
 };
-

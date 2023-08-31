@@ -142,17 +142,6 @@ const Dashboard = () => {
     },
   ];
 
- 
-
-  // if(isError){
-  //   return <Error/>
-  // }
-
-  if(isLoading){
-    return <Loader/>
-  }
-
- 
   
 
   return (
@@ -222,7 +211,7 @@ const Dashboard = () => {
               </Heading>
               <LineChart
               cursor="pointer"
-                width={730}
+                width={650}
                 height={250}
                 data={data}
                 margin={{ top: 5, right: 30, left: 20, bottom: 5 }}

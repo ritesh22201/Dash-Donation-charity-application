@@ -28,10 +28,6 @@ const AdminOrganization = () => {
   }, []);
 
   
-  if(isError){
-    return <Error/>
-  }
-
   if(isLoading){
     return <Loader/>
   }

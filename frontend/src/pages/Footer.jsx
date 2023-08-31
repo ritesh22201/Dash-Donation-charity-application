@@ -39,7 +39,7 @@ function Footer() {
 const DIV = styled.div`
 color: white;
 background: #0057b8;
-margin-top: 20px;
+
 padding: 50px 50px 20px 50px;
 .firstSection{
   display: flex;
