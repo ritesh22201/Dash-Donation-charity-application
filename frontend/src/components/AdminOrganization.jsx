@@ -12,10 +12,12 @@ import {
   Table,
   Button,
 } from '@chakra-ui/react';
-import { getAllusers, getOrganizations } from '../redux/AdminReducer/action';
+
 import { useDispatch, useSelector } from 'react-redux';
 import Error from './Error';
 import Loader from './Loader';
+
+import { getOrganizations } from '../redux/AdminReducer/action';
 
 const AdminOrganization = () => {
   const dispatch = useDispatch();
@@ -26,23 +28,21 @@ const AdminOrganization = () => {
   }, []);
 
   
-  if(isError){
-    return <Error/>
-  }
-
   if(isLoading){
     return <Loader/>
   }
-  // console.log(allusers)
+ 
   return (
-    // <div style={{textAlign:"center"}}>AdminOrganization</div>
-    <Box
+
+    <>
+  
+    {/* <Box
       display="flex"
       flexDirection="column"
       alignItems="flex-end"
       p="20px 60px 20px 20px"
-    >
-      <Box w="80%" borderRadius="10px" mt="40px" p="20px" bg="white">
+      > */}
+      <Box w="95%" borderRadius="10px" m="40px auto" p="20px" bg="white">
         <Flex justifyContent="space-between" alignItems="center">
           <Heading as="h3" size="sm">
             All Organizations
@@ -70,8 +70,8 @@ const AdminOrganization = () => {
                 .map(el => {
                   return (
                     <Tr
-                      key={el.id}
-                      _hover={{ bg: 'gray.200' }}
+                    key={el.id}
+                    _hover={{ bg: 'gray.200' }}
                       cursor={'pointer'}
                     >
                       <Td textAlign={'center'}>{el.name}</Td>
@@ -89,7 +89,8 @@ const AdminOrganization = () => {
           </Table>
         </TableContainer>
       </Box>
-    </Box>
+    {/* </Box> */}
+                </>
   );
 };
 

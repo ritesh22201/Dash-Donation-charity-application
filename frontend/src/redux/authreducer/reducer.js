@@ -2,6 +2,7 @@ import {
   AUTH_FAILURE,
   AUTH_REQUEST,
   LOGIN_SUCCESS,
+  LOGOUT_SUCCESS,
   REGISTER_SUCCESS,
 } from './actionTypes';
 
@@ -11,6 +12,7 @@ const initialState = {
   isRegistered: '',
   auth: false,
   errorMsg : '',
+  isLoggedOut : false,
   token: '',
   loggedInUser : ''
 };
@@ -30,6 +32,10 @@ export const reducer = (state = initialState, { type, payload }) => {
         isError: false,
         isRegistered: payload,
       };
+
+    case LOGOUT_SUCCESS : 
+    return {...state, isLoading : false, isError : false, isLoggedOut : true}
+
     default:
       return state;
   }

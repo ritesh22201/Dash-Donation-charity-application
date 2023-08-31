@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from "styled-components"
-import  background  from '../Assets/background.png';
+import background from '../Assets/background.png';
 import { Navigate, useNavigate } from 'react-router-dom';
 
 import { Box } from '@chakra-ui/react';
@@ -9,53 +9,52 @@ import About from "./About"
 import Partners from "./Partners"
 import Contact from "./Contact"
 import Footer from "./Footer"
+import Navbar from '../components/Navbar';
 function Home() {
-  const navigate=useNavigate()
+  const navigate = useNavigate()
   const handleDonateClick = () => {
     // Perform any necessary actions before navigating (if needed)
 
     // Navigate to the "/donation" route
     navigate('/donation');
   };
+
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  }, [])
+
   return (
     <DIV>
-      
-        <Box  bgImage={background}  bgSize={"cover"} backgroundRepeat={"repeat-x"}>
-           <div className='heading1'>
-            <h1>HELP</h1>
-            <h1>UKRAINE</h1>
-            <h1>WITHSTAND</h1>
-           </div>
-           <div className='donateBtn' >
-            <button onClick={handleDonateClick}>DONATE</button>
-            </div>
-           <div>
-            <div className='applink'>
-              <img src="https://www.charityhero.live/static/media/BAppStor.644ce6de09f0144c5967424bd9b6f27c.svg" alt="" />
-              <img src="https://www.charityhero.live/static/media/BGStor.db895fe2f79e4f4272fb1a3bcb554c67.svg" alt="" />
-            </div>
-           </div>
-           
-           <About/>
+      <Navbar />
+      <Box bgImage={background} bgSize={'contain'} backgroundRepeat={"repeat-x"}>
+        <div className='heading1'>
+          <h1>HELP</h1>
+          <h1>UKRAINE</h1>
+          <h1>WITHSTAND</h1>
+        </div>
+        <div className='donateBtn' >
+          <button onClick={handleDonateClick}>DONATE</button>
+        </div>
+        <div>
+          <div className='applink'>
+            <img src="https://www.charityhero.live/static/media/BAppStor.644ce6de09f0144c5967424bd9b6f27c.svg" alt="" />
+            <img src="https://www.charityhero.live/static/media/BGStor.db895fe2f79e4f4272fb1a3bcb554c67.svg" alt="" />
+          </div>
+        </div>
 
-       <Help/>
-       <Partners/>
-       <Contact/>
-       <Footer/>
-        </Box>
+        <About />
+
+        <Help />
+        <Partners />
+        <Contact />
+        <Footer />
+      </Box>
     </DIV>
   )
 }
 
 const DIV = styled.div`
 
- /* background-image: url(background); */
- /* background-color: #cccccc; */
-/* height: 1000px; */
-
-     /* box-sizing: border-box; */
-    /* outline: 1px solid limegreen !important; */
-/* width: 100%; */
 .heading1{
     font-size: 90px;
     line-height: 110px;
@@ -89,6 +88,7 @@ const DIV = styled.div`
   }
   .donateBtn{
     margin: 20px;
+    font-size: medium;
   }
 
 

@@ -13,7 +13,7 @@ import { Box } from '@chakra-ui/react';
   return (
     <DIV>
 
-    <div  style={{backgroundImage:`url(../Assets/background.png)`}} >
+    <div  style={{ backgroundImage:`url(../Assets/background.png)` }} >
         <h1 className='heading'>WHAT ULRAINE NEEDS NOW :</h1>
         <img src={helpImage} alt="" />
     </div>
@@ -55,7 +55,7 @@ import { Box } from '@chakra-ui/react';
       <h1 className='basisH'>A PERMANENT BASIS?</h1>
       <div className='appLink'>
         <p>Download the app and invite friends.</p>
-        <div >
+        <div className='logos' >
           <img src={playstore} alt="" />
           <img src={appstore} alt="" />
         </div>
@@ -133,4 +133,43 @@ const DIV = styled.div`
       font-size: 30px;
       font-weight: 700;
     }
+
+    @media only screen and (max-width: 1024px) {
+      padding: 30px ;
+
+    .heading{
+      /* margin: 20px; */
+      font-weight: 600;
+      margin-top: 10px;
+        font-size: 18px;
+    }
+    .helpContainer > img{
+      width: 0;
+      height: 0;
+      visibility: hidden;
+    }
+    .helpContainer{
+      margin: auto;
+
+    }
+    .logos > img{
+      height: 40px;
+    }
+    .logos{
+      display: flex;
+      flex-direction: column;
+    }
+    .appLink{
+      font-size: medium;
+    }
+    .basisH{
+      font-size: larger;
+      text-align: center;
+    }
+    .bluePara{
+      font-size: medium;
+      width: 100%;
+      margin: 10px 0;
+    }
+  }
 `

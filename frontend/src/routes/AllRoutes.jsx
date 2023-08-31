@@ -7,10 +7,11 @@ import Home from '../pages/Home'
 import SignupPage from '../pages/SignupPage'
 import LoginPage from '../pages/LoginPage'
 import PrivateRoutes from '../components/PrivateRoutes';
-// import DonationList from '../pages/DonationList';
 import AdminPrivateRoute from '../components/AdminPrivateRoute';
-import DonationData from '../pages/DonationData';
-import PageNotFound from '../components/PageNotFound';
+import DonationList from '../pages/DonationList';
+import Modals from '../components/Modals';
+import Organization from '../pages/Organization';
+import Payment from '../pages/Payment';
 const AllRoutes = () => {
   return (
     <Routes>
@@ -22,10 +23,19 @@ const AllRoutes = () => {
       <Route path='/donation' element={<PrivateRoutes>
         <Donation />
       </PrivateRoutes>} />
+      <Route path='/organization' element={<PrivateRoutes>
+        <Organization />
+      </PrivateRoutes>} />
+      <Route path='/Modals' element={<PrivateRoutes>
+        <Modals />
+      </PrivateRoutes>} />
       <Route path='/donationdata' element={<PrivateRoutes>
-        <DonationData />
-      </PrivateRoutes>}>
-      </Route>
+        <DonationList />
+      </PrivateRoutes>} />
+      <Route path='/payment' element={<PrivateRoutes>
+        <Payment />
+      </PrivateRoutes> } />
+
       <Route
         path="/admin"
         element={
@@ -40,5 +50,5 @@ const AllRoutes = () => {
 
 
 
-
 export default AllRoutes;
+

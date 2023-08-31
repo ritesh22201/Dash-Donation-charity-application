@@ -2,26 +2,72 @@ import axios from 'axios';
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchDonations } from '../redux/donationReducer/action';
+import {
+  Button,
+  FormControl,
+  FormLabel,
+  Input,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Select,
+  useDisclosure,
+  Box,
+  AlertDialog,
+  AlertDialogBody,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogContent,
+  AlertDialogOverlay,
+  AlertDialogCloseButton,
+  Flex,
+  Heading,
+  Text,
+} from '@chakra-ui/react';
+import { Navigate, useLocation } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import Navbar2 from '../components/Navbar2';
+import Footer from './Footer';
 
 
 // "email":"ritesh@gmail.com",
 // "password":"Ritesh@123"
 
+
+const token = JSON.parse(localStorage.getItem('ch-token')) || {}
+
 const DonationList = () => {
-  const dispatch=useDispatch();
-  useEffect(()=>{
-    dispatch(fetchDonations())
-  })
+  const location = useLocation();
+  const formData = location.state?.formData;
 
-  const donations=useSelector((store)=>store.donationReducer.donations)
-console.log(localStorage.getItem('ch-token'));
+  const { isOpen, onOpen, onClose } = useDisclosure()
+  const navigation = useNavigate()
+  const initialRef = React.useRef(null)
+  const finalRef = React.useRef(null)
+  const cancelRef = React.useRef()
 
+
+
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchDonations(token.token))
+  }, [token])
+
+
+  const donations = useSelector((store) => store.donationReducer.donation)
   const containerStyle = {
     padding: '20px',
     backgroundColor: '#f5f5f5',
   };
 
+
   // Inline style object for the donation items
+
 
   // Inline style object for the header
   const donationItemStyle = {
@@ -35,6 +81,7 @@ console.log(localStorage.getItem('ch-token'));
     alignItems: 'center',
   };
 
+
   const headerStyle = {
     textAlign: 'center',
     fontSize: '32px',
@@ -42,17 +89,18 @@ console.log(localStorage.getItem('ch-token'));
     color: '#333',
   };
 
+
   const headingStyle = {
     marginBottom: '10px',
     color: '#333',
     fontSize: '24px',
   };
 
+
   const detailStyle = {
     margin: '0',
     color: '#777',
   };
-
   const buttonStyle = {
     padding: '8px 16px',
     backgroundColor: '#007BFF',
@@ -63,65 +111,81 @@ console.log(localStorage.getItem('ch-token'));
     marginLeft: '10px',
   };
 
-  const handleUpdateDonation = async (id) => {
-    try {
-      const token = ''; // Replace with your authentication token
-      const updatedData = {}; // Update this object with the new data for the donation
-      const response = await axios.put(`https://odd-lion-life-jacket.cyclic.app/api/donation/update/${id}`, updatedData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      console.log(response.data.msg);
-      // Handle the successful update, such as updating the donation list with the updated data
-    } catch (error) {
-      console.error(error.response.data.msg);
-      // Handle the error, display an error message, or perform appropriate error handling
-    }
-  };
-  
-  const handleDeleteDonation = async (id) => {
-    console.log('im clicked');
-    try {
-      const token = ''; // Replace with your authentication token
-      const response = await axios.delete(`https://odd-lion-life-jacket.cyclic.app/api/donation/delete/${id}`)
 
-        
-      // Handle the successful deletion, such as updating the donation list by removing the deleted donation
-    } catch (error) {
-      console.error(error.response.data.msg);
-      // Handle the error, display an error message, or perform appropriate error handling
-    }
+  const handleUpdateDonation = async (id) => {
+    navigation('/Modals');
   };
+
+
+  const handleDeleteDonation = async (id) => {
+    onOpen()
+  };
+
+  const handleDonationAgain = () => {
+    navigation('/donation')
+  }
+
   return (
-    <div style={containerStyle}>
-      <h1 style={headerStyle}>Donation List</h1>
-      <div className="donation-list">
-        {donations.map((donation) => (
-          <div key={donation.userId} style={donationItemStyle}>
-            <div>
-              <h2 style={headingStyle}>{donation.name}</h2>
-              <p style={detailStyle}>Amount: ${donation.amount}</p>
-              <p style={detailStyle}>Message: {donation.message}</p>
-              <p style={detailStyle}>Category: {donation.category}</p>
+    <>
+      <Navbar2 />
+      <div style={containerStyle}>
+        <Flex justifyContent={'space-between'} pb={'30px'} alignItems={'center'}>
+          <Text></Text>
+          <Heading>Your Donation List</Heading>
+          <Button onClick={handleDonationAgain} colorScheme='blue'>Donate again</Button>
+        </Flex>
+        <div>
+          {donations?.map((donation) => (
+            <div key={donation.userId} style={donationItemStyle}>
+              <div>
+                <h2 style={headingStyle}>{donation.name}</h2>
+                <p style={detailStyle}>Amount: ${donation.amount}</p>
+                <p style={detailStyle}>Message: {donation.message}</p>
+                <p style={detailStyle}>Category: {donation.category}</p>
+              </div>
+              <div>
+              </div>
+              <AlertDialog
+                isOpen={isOpen}
+                leastDestructiveRef={cancelRef}
+                onClose={onClose}
+              >
+                <AlertDialogOverlay>
+                  <AlertDialogContent>
+                    <AlertDialogHeader fontSize='lg' fontWeight='bold'>
+                      Delete Customer
+                    </AlertDialogHeader>
+
+
+                    <AlertDialogBody>
+                      Are you sure? You can't undo this action afterwards.
+                    </AlertDialogBody>
+
+
+                    <AlertDialogFooter>
+                      <Button ref={cancelRef} onClick={onClose}>
+                        Cancel
+                      </Button>
+                      <Button colorScheme='red' onClick={onClose} ml={3}>
+                        Delete
+                      </Button>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialogOverlay>
+              </AlertDialog>
             </div>
-            <div>
-              {/* Update button */}
-              <button style={buttonStyle} onClick={() => handleUpdateDonation(donation.userId)}>
-                Update
-              </button>
-              {/* Delete button */}
-              <button style={buttonStyle} onClick={() => handleDeleteDonation(donation.userId)}>
-                Delete
-              </button>
-            </div>
-          </div>
-        ))}
+          )).reverse()}
+        </div>
       </div>
-    </div>
+      <Footer />
+    </>
   );
 };
 
 
 
+
+
+
 export default DonationList;
+

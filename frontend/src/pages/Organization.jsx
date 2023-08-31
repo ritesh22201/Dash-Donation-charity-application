@@ -1,34 +1,48 @@
 import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import OrganizationCard from '../components/OrganizationCard'
+import OrganizationCard from './OrganizationCard'
+import { useDispatch, useSelector } from 'react-redux';
+import { getOrg } from '../redux/OrgReducer/action';
+import Navbar2 from '../components/Navbar2';
+import Footer from './Footer';
+import Loader from '../components/Loader';
+
 function Organization() {
-    const [data, setData] = useState([{ name: "Health Aid Foundetion", description: "medical assistance", category: "Health", website: "www.xyz.com" }, { name: "Health Aid Foundetion", description: "medical assistance", category: "Education", website: "www.xyz.com" }, { name: "Health Aid Foundetion", description: "medical assistance", category: "Health", website: "www.xyz.com" }, { name: "Health Aid Foundetion", description: "medical assistance", category: "Health", website: "www.xyz.com" }, { name: "Health Aid Foundetion", description: "medical assistance", category: "Education", website: "www.xyz.com" }])
+    const {orgData, isloading} = useSelector(store => store.orgReducer);
+
+    const dispatch = useDispatch();
     useEffect(() => {
-        axios.get("https://odd-lion-life-jacket.cyclic.app/users/organization").then((res) => {
-            setData(res.data)
-            console.log(res);
-        }).catch((err) => {
-            console.log(err);
-        })
+        dispatch(getOrg());
     }, [])
-    console.log('check');
+
+    useEffect(() => {
+        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }, [])
+
     return (
-        <DIV>
-
-            {
-                data.map((el) => (<OrganizationCard data={el} />))
-            }
-
-        </DIV>
+        <>
+            <Navbar2 />
+            {isloading ? <Loader/> : 
+            <div style={{ backgroundColor: '#f4f0f0' }}>
+                <h1 className='heading' style={{ fontSize: '35px', fontWeight: 'bold', padding: '20px ', background: '#394FA5', background: 'linear-gradient(to right, #394FA5 0%, #3D5FAD 50%, #467FBE 100%)', color : 'white'}}>CHOOSE YOUR ORGANIZATION</h1>
+                <DIV>
+                    {
+                        orgData.map(el => (<OrganizationCard data={el} />))
+                    }
+                </DIV>
+            </div>
+           }
+            <Footer />
+        </>
     )
 }
 const DIV = styled.div`
 padding: 20px;
 display: grid;
-gap: 10px;
+gap: 20px;
 grid-template-columns: repeat(3,1fr);
-margin: auto;
+/* margin: auto; */
 
 
 @media only screen and (max-width: 1024px) {

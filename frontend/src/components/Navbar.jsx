@@ -3,117 +3,143 @@ import {
 	MenuButton,
 	MenuList,
 	MenuItem,
-	Button
-  } from '@chakra-ui/react'
-  
+	Button,
+	useDisclosure,
+	useToast
+} from '@chakra-ui/react'
 
-import {  useState } from "react";
-import {Link,useNavigate} from "react-router-dom"
+
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom"
 import { FaBars, FaTimes } from "react-icons/fa";
 import styled from "styled-components";
-import {CgProfile} from "react-icons/cg"
-import {FiLogIn} from "react-icons/fi"
+import { CgProfile } from "react-icons/cg"
+import { FiLogIn } from "react-icons/fi"
 import { Icon } from "@chakra-ui/react";
-import {SearchIcon} from "@chakra-ui/icons"
-import DASHDONATION  from "../Assets/DASHDONATION.png"
-import { useDispatch } from 'react-redux';
+import { SearchIcon } from "@chakra-ui/icons"
+import DASHDONATION from "../Assets/DASHDONATION.png"
+import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../redux/authreducer/action';
 
- const Navbar = () =>{
-	
+const Navbar = () => {
+	// const {isOpen } = useDisclosure();
 	const [navClass, setNavClass] = useState(false)
-    // console.log(window.location.pathname);
-	const user = JSON.parse(localStorage.getItem("ch-token"))
-	
+	const toast = useToast();
+	const { isLoggedOut } = useSelector(store => store.authReducer);
+
+	const user = JSON.parse(localStorage.getItem("ch-token")) || {};
+	const token = user.token;
 
 	const showNavbar = () => {
-		setNavClass(!navClass)		
+		setNavClass(!navClass)
 	};
 
-	  const token = localStorage.getItem('ch-token') || '';
 
-	  const dispatch = useDispatch()
+	const dispatch = useDispatch()
 
-	const handleLogOut = () =>{
+	const handleLogOut = () => {
 
-			localStorage.removeItem("ch-token")
-			dispatch(logout(token))
-			window.location.reload(true);
-
+		localStorage.removeItem("ch-token")
+		dispatch(logout(token));
 	}
 
+	useEffect(() => {
+		if (isLoggedOut === true) {
+			toast({
+				title: 'User logged out successfully',
+				status: 'success',
+				isClosable: true,
+				duration: 4000,
+				position: 'top'
+			})
 
-	
-const navgite = useNavigate()
+			setTimeout(() => {
+				window.location.reload();
+			}, 4000)
+		}
+	}, [isLoggedOut])
+
+	const navigate = useNavigate()
 	return <HEADER>
-    <header>
+		<header>
 
 
-			
+
 			<Link to="/"> <img className="logo" alt="logo" src={DASHDONATION} /> </Link>
 
 
-			<div className= {"secNav"} >
-			{/* ref={navRef} */}
-			<nav className= {navClass ? "responsive_nav" : "false"} >
-				<Link  to="/" >About</Link>
-                {/* <div className="blackDot"></div> */}
-				<Link  to="/" className="about section" >Help</Link>
-                {/* <div className="blackDot"></div> */}
-				<Link to="/" >Partners</Link>
-                {/* <div className="blackDot"></div> */}
-				<Link to="/" >Contact us</Link>
-				
-                
-				<button
-					className="nav-btn nav-close-btn" 
-          onClick={showNavbar}
+			<div className={"secNav"} >
+				{/* ref={navRef} */}
+				<nav className={navClass ? "responsive_nav" : "false"} >
+					<Link to="/" >About</Link>
+					{/* <div className="blackDot"></div> */}
+					<Link to="/" className="about section" >Help</Link>
+					{/* <div className="blackDot"></div> */}
+					<Link to="/" >Partners</Link>
+					{/* <div className="blackDot"></div> */}
+					<Link to="/" >Contact us</Link>
+
+
+					<button
+						className="nav-btn nav-close-btn"
+						onClick={showNavbar}
 					>
 						{/* onClick={showNavbar} */}
-					<Icon as={FaTimes} />
-				</button>
-				{/* -------------------------------------------------------I added search here------------------------- */}
-				
-			</nav>
-            <div className="navIcons">
-				{/* <input className="beforeSearch" ref={searchBar} type="text" placeholder="Search"  onChange={(e)=>setSearchText(e.target.value)}/> */}
-                    {/* <SearchIcon onClick={showSearch}/> */}
-					<Link to="/cart">
-					{/* <Icon as={BsHandbag}/> */}
-					</Link>
-                    {
-						token ? <Menu>
-						{({ isOpen }) => (
-						  <div>
-							<MenuButton isActive={isOpen} as={Button}   >
-							  {isOpen ? <Icon size={30} as={CgProfile} /> : <Icon as={CgProfile} size={30} />}
-							</MenuButton>
-							<MenuList style= {{display:"flex", flexDirection:"column"}}>
-							<MenuItem color={"black"} >{user.loggedInUser }</MenuItem>
-							  <MenuItem color={"black"} onClick={()=> {
-								navgite("/admin")
-							  }}>Admin</MenuItem>
-							  <MenuItem color={"black"} onClick={handleLogOut}>Log Out</MenuItem>
-							</MenuList>
-						  </div>
-						)}
-					  </Menu> : <Link to="/users/register">
-                    <Icon as={FiLogIn}/>
-					</Link>
+						<Icon as={FaTimes} />
+					</button>
+					{/* -------------------------------------------------------I added search here------------------------- */}
 
+				</nav>
+				<div className="navIcons">
+					{/* <input className="beforeSearch" ref={searchBar} type="text" placeholder="Search"  onChange={(e)=>setSearchText(e.target.value)}/> */}
+					{/* <SearchIcon onClick={showSearch}/> */}
+					<Link to="/cart">
+						{/* <Icon as={BsHandbag}/> */}
+					</Link>
+					{
+						token ? <Menu>
+							{({ isOpen }) => (
+								<div>
+									<MenuButton isActive={isOpen} as={Button}   >
+										{isOpen ? <Icon size={30} as={CgProfile} /> : <Icon as={CgProfile} size={30} />}
+									</MenuButton>
+									<MenuList style={{ display: "flex", flexDirection: "column" }}>
+										<MenuItem color={"black"} >{user.name}</MenuItem>
+										<MenuItem color={"black"} onClick={() => {
+											navigate("/adminlogin")
+										}}>Admin</MenuItem>
+										<MenuItem color={"black"} onClick={handleLogOut}>Log Out</MenuItem>
+									</MenuList>
+								</div>
+							)}
+						</Menu> : <Menu>
+							{({ isOpen }) => (
+								<div>
+									<MenuButton isActive={isOpen} as={Button}   >
+										{isOpen ? <Icon size={30} as={FiLogIn} /> : <Icon as={FiLogIn} size={30} />}
+									</MenuButton>
+									<MenuList style={{ display: "flex", flexDirection: "column" }}>
+										<MenuItem color={"black"} onClick={() => {
+											navigate("/adminlogin")
+										}}>Admin</MenuItem>
+										<MenuItem color={"black"} onClick={() => navigate('/users/register')}>Signup</MenuItem>
+									</MenuList>
+								</div>
+							)}
+						</Menu>
 					}
-					
-                </div>
-			<button onClick={showNavbar}
-				className="nav-btn"
-				 >
-				
-				<Icon as={FaBars} size={10}  />
-			</button>
+
+				</div>
+				<button onClick={showNavbar}
+					className="nav-btn"
+				>
+
+					<Icon as={FaBars} size={10} />
+				</button>
 			</div>
-      </header>
-		</HEADER>
-	
+		</header>
+	</HEADER>
+
 }
 
 
@@ -244,6 +270,7 @@ nav{
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		z-index: 100;
 		justify-content: center;
 		gap: 1.5rem;
 		background-color: black;
